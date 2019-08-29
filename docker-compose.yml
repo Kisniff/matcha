@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+
+  db:
+   image: mysql:5.7.21
+   restart: always
+   environment:
+    MYSQL_USER: me
+    MYSQL_PASSWORD: test
+    MYSQL_ROOT_PASSWORD: test
+    MYSQL_DATABASE: data
+   ports:
+   - "3306:3306"
+
+#docker-compose up
