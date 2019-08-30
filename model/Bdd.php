@@ -230,18 +230,49 @@ Class Bdd{
       if ($ret == "login")
         return (Form::field_error("Login", "Le login renseigné est déjà utilisé"));
     }
+    // create key
+    $key = "";
+    for($i=1 ; $i<15 ; $i++)
+    $key .= mt_rand(0,9);
+
     $mdp = hash('whirlpool', $mdp);
-    $query = "INSERT INTO matcha." . $table . " VALUES (id, :login, :first_name, :last_name, :mail, :bool, location, :pwd, age, likes, matches, likes_nb, id_liked, reported_by_id, blocked_id)";
+    $query = "INSERT INTO matcha." . $table . " VALUES (id, :login, :first_name, :last_name, :mail, :bool, :key, location, :pwd, age, likes, matches, likes_nb, id_liked, reported_by_id, blocked_id)";
     $instruct = $this->db->prepare($query);
     $instruct->bindParam(':login', $login, PDO::PARAM_STR);
     $instruct->bindParam(':first_name', $first_name, PDO::PARAM_STR);
     $instruct->bindParam(':last_name', $last_name, PDO::PARAM_STR);
     $instruct->bindParam(':mail', $mail, PDO::PARAM_STR);
     $instruct->bindParam(':bool', $bool, PDO::PARAM_STR);
+    $instruct->bindParam(':key', $key, PDO::PARAM_STR);
     $instruct->bindParam(':pwd', $mdp, PDO::PARAM_STR);
     $instruct->execute();
     $query = "INSERT INTO matcha.users_profile VALUES(id, genre, orientation, null, null, null);";
     $instruct = $this->query($query);
+
+    // add send mail for confirm
+    $header="MIME-Version: 1.0\r\n";
+    $header.='From: Matcha.com <support@matcha.com>'."\n";
+    $header.='Content-Type:text/html; charset="uft-8"'."\n";
+    $message='
+    <html>
+      <body>
+        <div align="center">
+          <a href="http://'.$_SERVER['HTTP_HOST'].str_replace("/model/Bdd.php", "", $_SERVER['PHP_SELF']).'?p=Connexion&key='.$key.'">Confirmez votre compte !</a>
+        </div>
+      </body>
+    </html>
+    ';
+    if ($mail = mail($mail, "Confirmation de compte", $message, $header))
+    {
+      print('Votre compte a bien été créé ! </br> Veuillez vérifier votre boîte de réception pour confirmer votre email.');
+      // $arr = array("success" => $error);
+    }
+    else
+    {
+      print("L'envoi de l'email de confirmation à échoué ! </br> Veuillez vérifier si votre adresse mail est valide et rééssayez.");
+      // $arr = array("error" => $error);
+    }
+
     return (true);
   }
 
