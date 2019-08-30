@@ -11,6 +11,6 @@ services:
     MYSQL_ROOT_PASSWORD: test
     MYSQL_DATABASE: data
    ports:
-   - "3306:3306"
+   - "8100:8100"
 
 #docker-compose up

@@ -1,5 +1,5 @@
 <?php
-$DB_DSN = "mysql:db_name=matcha;host=localhost:3306";
+$DB_DSN = "mysql:host=localhost";
 $DB_USER = "root";
-$DB_PASSWORD = "test";
+$DB_PASSWORD = "mthiery";
 ?>

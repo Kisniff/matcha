@@ -3,17 +3,22 @@ Class Bdd{
 
   public $db;
 
-  public function __construct($dsn="mysql:host=localhost:3306", $login = "root", $pwd="test")
+  public function __construct($dsn="mysql:host=localhost", $login = "root", $pwd="mthiery")
   {
-    try
-    {
-      $this->db = new PDO($dsn, $login, $pwd);
-    }
-    catch (Exception $d){
-        $this->db = new PDO($dsn, $login, $pwd);
-    }
-    $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    if ($this->db = new PDO($dsn, $login, $pwd))
+  {
+    // $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return ($this->db);
+  }
+    // try
+    // {
+    //   $this->db = new PDO($dsn, $login, $pwd);
+    // }
+    // catch (Exception $d){
+    //     $this->db = new PDO($dsn, $login, $pwd);
+    // }
+    // $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    // return ($this->db);
   }
 
   public function init_bdd($db_name="matcha", $table_name="users"){

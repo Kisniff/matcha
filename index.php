@@ -1,4 +1,11 @@
 <?php
+// $dsn="mysql:host=localhost:8100;";
+// $login = "root";
+// $pwd="mthiery";
+// if ($db = new PDO($dsn, $login, $pwd))
+//   {
+//     print("cool");
+//   }
 header("Access-Control-Allow-Origin: http://www.geoplugin.com/");
 session_start();
 
@@ -8,10 +15,12 @@ include_once("model/Bdd.php");
 include_once("model/Session_status.php");
 include_once("config/database.php");
 $pdo = new Bdd($DB_DSN, $DB_USER, $DB_PASSWORD);
+// $pdo->init_bdd();
 try {
 	$pdo->query("use matcha;");
 	$pdo->query("SELECT * FROM users");
-	$pdo->query("SELECT * FROM users_profile");
+  $pdo->query("SELECT * FROM users_profile");
+  // print("haha");
 }
 catch (Exception $e){
 	$pdo->init_bdd();
@@ -62,7 +71,7 @@ else if ($_SESSION['connexion_status'] == "offline")
 ?>
 
 <?php
-//footer
+// footer
 $layout->white_space(4);
 include_once("view/footer.php");
 ?>
