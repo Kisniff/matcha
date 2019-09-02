@@ -257,7 +257,7 @@ Class Bdd{
     <html>
       <body>
         <div align="center">
-          <a href="http://'.$_SERVER['HTTP_HOST'].str_replace("/model/Bdd.php", "", $_SERVER['PHP_SELF']).'?p=Connexion&key='.$key.'">Confirmez votre compte !</a>
+          <a href="http://'.$_SERVER['HTTP_HOST'].str_replace("/model/Bdd.php", "", $_SERVER['PHP_SELF']).'?p=Connexion&uid='.urlencode($login).'&key='.$key.'">Confirmez votre compte !</a>
         </div>
       </body>
     </html>
