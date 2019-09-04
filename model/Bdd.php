@@ -300,10 +300,4 @@ Class Bdd{
     $query = "DELETE FROM " . $database . ".notifications WHERE (id = " . $id . ")";
     $bdd->query($query);
   }
-
-  // public function update_confirm($uid, $key, $table = "users", $db = "matcha") {
-  //   self::alter_table()
-  //   $statement = "UPDATE " . $db . "." . $table . " SET " . $column . " = :value WHERE id = " . $id;
-  //   $instruct = (new self)->db->prepare($statement);
-  // }
 }
