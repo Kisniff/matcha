@@ -327,7 +327,8 @@ $instruct = $bdd->query($query);
 $data = $instruct->fetch();
 $nb_user = $data[0];
 $i = 0;
-$mdp = hash('whirlpool', 'root');
+$mdp = password_hash('root', PASSWORD_DEFAULT); 
+//hash('whirlpool', 'root');
 
 $query = "SELECT photos FROM matcha.myTablePics WHERE (sexe='h')";
 $instruct = $bdd->query($query);

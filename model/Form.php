@@ -292,7 +292,7 @@ class Form
     {
       if ((new self)->password_checker(htmlspecialchars($_POST['pwd'])))
       {
-        Bdd::alter_table($user_id, "password", hash('whirlpool', htmlspecialchars($_POST['pwd'])));
+        Bdd::alter_table($user_id, "password", password_hash(htmlspecialchars($_POST['pwd']), PASSWORD_DEFAULT));
       }
     }
     if (isset($_POST['location']))

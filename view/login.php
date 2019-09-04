@@ -32,6 +32,8 @@ include_once("config/auth_config.php");
         Form::field_error("Email", "Cet email ne correspond a aucun compte utilisateur");
       if ($ret == "password")
         Form::field_error("Mot de passe", "Mot de passe incorrect");
+      if ($ret == "unconfirm")
+        Form::field_error("Email", "Votre adresse mail n'a pas été confirmée, veuillez vérifier votre boîte de réception.");
     }
     else
       echo("<script>

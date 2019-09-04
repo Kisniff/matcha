@@ -99,12 +99,14 @@ Class Bdd{
   {
       if ($this->user_exist($mail) != "mail")
         return ("mail");
-      $password = hash('whirlpool', $password);
-      $instruct = $this->db->query("SELECT password FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
+      // $password = password_hash($password, PASSWORD_DEFAULT);
+      $instruct = $this->db->query("SELECT password, confirmed FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
       $datas = $instruct->fetchAll();
-      if ($datas[0]['password'] == $password)
-        return (false);
-      return ("password");
+      if ($datas[0]['confirmed'] == 0)
+        return ("unconfirm");
+      if (!password_verify(htmlspecialchars($password), $datas[0]['password']))
+        return ("password");
+      return (false);
   }
 
   public function prepare($query){
@@ -242,7 +244,7 @@ Class Bdd{
     for($i=1 ; $i<15 ; $i++)
     $key .= mt_rand(0,9);
 
-    $mdp = hash('whirlpool', $mdp);
+    $mdp = password_hash(htmlspecialchars($mdp), PASSWORD_DEFAULT);
     $query = "INSERT INTO matcha." . $table . " VALUES (id, :login, :first_name, :last_name, :mail, :bool, :key, location, :pwd, age, likes, matches, likes_nb, id_liked, reported_by_id, blocked_id)";
     $instruct = $this->db->prepare($query);
     $instruct->bindParam(':login', $login, PDO::PARAM_STR);
@@ -270,15 +272,9 @@ Class Bdd{
     </html>
     ';
     if ($mail = mail($mail, "Confirmation de compte", $message, $header))
-    {
       print('Votre compte a bien été créé ! </br> Veuillez vérifier votre boîte de réception pour confirmer votre email.');
-      // $arr = array("success" => $error);
-    }
     else
-    {
       print("L'envoi de l'email de confirmation à échoué ! </br> Veuillez vérifier si votre adresse mail est valide et rééssayez.");
-      // $arr = array("error" => $error);
-    }
 
     return (true);
   }
