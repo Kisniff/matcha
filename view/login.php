@@ -9,6 +9,11 @@ include_once("config/auth_config.php");
 
 <!-- Form -->
 <?php
+  if (isset($_GET['key']) && isset($_GET['p']) && $_GET['p'] == 'Connexion')
+  {
+    $user_id = Bdd::get_user_field($_SESSION['email'], "id");
+    Bdd::alter_table($user_id, "confirmed", $_GET['key']);
+  }
   $form = new Form("post", "index.php?p=Connexion");
   if (isset($_POST['email']))
     $form->entry("Email", "email", "email", htmlspecialchars($_POST['email']));

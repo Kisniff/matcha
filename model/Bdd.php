@@ -143,6 +143,13 @@ Class Bdd{
       $instruct->bindParam(':value', $value, PDO::PARAM_STR);
       $instruct->execute();
     }
+    else if ($column == 'confirmed')
+    {
+      $statement = "UPDATE " . $db . "." . $table . " SET " . $column . " = 1 WHERE id = " . $id . " AND `key` = :value";
+      $instruct = (new self)->db->prepare($statement);
+      $instruct->bindParam(':value', $value, PDO::PARAM_STR);
+      $instruct->execute();
+    }
     else if ($column != "images")
     {
       $value = str_replace("'", "", $value);
@@ -257,7 +264,7 @@ Class Bdd{
     <html>
       <body>
         <div align="center">
-          <a href="http://'.$_SERVER['HTTP_HOST'].str_replace("/model/Bdd.php", "", $_SERVER['PHP_SELF']).'?p=Connexion&uid='.urlencode($login).'&key='.$key.'">Confirmez votre compte !</a>
+          <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?p=Connexion&key='.$key.'">Confirmez votre compte !</a>
         </div>
       </body>
     </html>
@@ -293,4 +300,10 @@ Class Bdd{
     $query = "DELETE FROM " . $database . ".notifications WHERE (id = " . $id . ")";
     $bdd->query($query);
   }
+
+  // public function update_confirm($uid, $key, $table = "users", $db = "matcha") {
+  //   self::alter_table()
+  //   $statement = "UPDATE " . $db . "." . $table . " SET " . $column . " = :value WHERE id = " . $id;
+  //   $instruct = (new self)->db->prepare($statement);
+  // }
 }
