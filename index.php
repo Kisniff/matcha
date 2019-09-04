@@ -50,6 +50,8 @@ else if ($_SESSION['page'] == "connect")
   include_once("view/auth_connection.php");
 else if ($_SESSION['page'] == "Deconnexion")
   include_once("view/login.php");
+else if ($_SESSION['page'] == "forgotpwd")
+  include_once("view/forgotpwd.php");
 else if ($_SESSION['page'] == "members")
   include_once("view/members.php");
 else if ($_SESSION['page'] == "member_profile")

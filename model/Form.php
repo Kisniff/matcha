@@ -242,6 +242,14 @@ class Form
         <p class='col-sm-12 error_message text-center'>" . $error_message . "</p>
       </div>
       ");
+    if ($id == "Mot de passe")
+    {
+      echo(
+        "<div class='col-sm-12 row'>
+          <p class='col-sm-12 error_message text-center'><a href='index.php?p=forgotpwd' id='fpwd-link'>Mot de passe oublié</a></p>
+        </div>
+        ");
+    }
     return (false);
   }
 
