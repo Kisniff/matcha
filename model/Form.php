@@ -210,6 +210,7 @@ class Form
 
   public static function are_connexion_fields_ok()
   {
+    print("je vais la");
     if (!isset($_POST['email']))
       return (self::field_error("Email", "Veuillez renseigner un email"));
     $_SESSION['email'] = htmlspecialchars($_POST['email']);

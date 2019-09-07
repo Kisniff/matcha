@@ -99,13 +99,35 @@ Class Bdd{
   {
       if ($this->user_exist($mail) != "mail")
         return ("mail");
-      // $password = password_hash($password, PASSWORD_DEFAULT);
-      $instruct = $this->db->query("SELECT password, confirmed FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
+      $instruct = $this->db->query("SELECT password, confirmed, key FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
       $datas = $instruct->fetchAll();
       if ($datas[0]['confirmed'] == 0)
         return ("unconfirm");
-      if (!password_verify(htmlspecialchars($password), $datas[0]['password']))
+      if ($password == "I forgot my fucking password!!")
+      {
+        $key = $datas[0]['key'];
+        $this->send_mail($mail, 'Réinitialisez votre mot de passe.', 'resetpwd&key='.$key, "Réinitialisation de mot de passe");
+      }
+      else if (!password_verify(htmlspecialchars($password), $datas[0]['password']))
         return ("password");
+      return (false);
+  }
+
+  public function reset_pwd($mail, $password, $key = '1', $table = "users", $db_name = "matcha")
+  {
+    print("je passe la");
+      if ($this->user_exist($mail) != "mail")
+        return ("mail");
+      $instruct = $this->db->query("SELECT confirmed, key FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
+      $datas = $instruct->fetchAll();
+      print($datas);
+      if ($datas[0]['confirmed'] == 0)
+        return ("unconfirm");
+      if ($datas[0]['key'] == $key)
+        return ("invalid key");
+      print("yes");
+      $user_id = $this->get_user_field($mail, "id");
+      $this->alter_table($user_id, "password", password_hash(htmlspecialchars($password), PASSWORD_DEFAULT));
       return (false);
   }
 
@@ -259,6 +281,14 @@ Class Bdd{
     $instruct = $this->query($query);
 
     // add send mail for confirm
+    $this->send_mail($mail, 'Confirmez votre compte !', 'Connexion&key='.$key, "Confirmation de compte");
+
+    return (true);
+  }
+
+  public static function send_mail($mail, $action, $page, $object)
+  {
+    // add send mail for confirm
     $header="MIME-Version: 1.0\r\n";
     $header.='From: Matcha.com <support@matcha.com>'."\n";
     $header.='Content-Type:text/html; charset="uft-8"'."\n";
@@ -266,17 +296,15 @@ Class Bdd{
     <html>
       <body>
         <div align="center">
-          <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?p=Connexion&key='.$key.'">Confirmez votre compte !</a>
+          <a href="http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF'].'?p='.$page.'">'.$action.'</a>
         </div>
       </body>
     </html>
     ';
-    if ($mail = mail($mail, "Confirmation de compte", $message, $header))
-      print('Votre compte a bien été créé ! </br> Veuillez vérifier votre boîte de réception pour confirmer votre email.');
+    if ($mail = mail($mail, $object, $message, $header))
+      print('Un email vous a été envoyé ! </br> Veuillez vérifier votre boîte de réception pour confirmer votre email.');
     else
       print("L'envoi de l'email de confirmation à échoué ! </br> Veuillez vérifier si votre adresse mail est valide et rééssayez.");
-
-    return (true);
   }
 
   public static function add_notif($id_member_a, $id_member_b, $notif, $database = "matcha")
