@@ -39,7 +39,7 @@ include_once("config/auth_config.php");
         Form::field_error("Email", "Vous essayez de réinitialiser le mot de passe d'un compte qui ne vous appartient pas...");
     }
     else 
-      Form::validation_message("Votre mot de passe a bien été modifié.");
+      $form->validation_message("Votre mot de passe a bien été modifié.");
   }
   $_SESSION['connexion_status'] = "attempt";
 ?>
