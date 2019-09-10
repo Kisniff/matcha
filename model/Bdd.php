@@ -290,7 +290,6 @@ Class Bdd{
   public static function send_mail($mail, $action, $page, $object)
   {
     // add send mail for confirm
-    print("send mail");
     $header="MIME-Version: 1.0\r\n";
     $header.='From: Matcha.com <support@matcha.com>'."\n";
     $header.='Content-Type:text/html; charset="uft-8"'."\n";
