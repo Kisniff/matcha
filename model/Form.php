@@ -117,17 +117,18 @@ class Form
     ");
   }
 
-  public function password_checker($password)
+  public function password_checker($password, $oldpwd = false)
   {
-    if (strlen($_SESSION['pwd']) < 8)
+    $field = $oldpwd ? "Nouveau mot de passe" : "Mot de passe";
+    if (strlen($password) < 8)
     {
-      return (self::field_error("Mot de passe", "Votre mot de passe doit contenir au moins 8 caractères"));
+      return (self::field_error($field, "Votre mot de passe doit contenir au moins 8 caractères"));
     }
-    if (preg_match("/[a-z]/s", $_SESSION['pwd']) !== 0 && preg_match("/[A-Z]/s", $_SESSION['pwd']) !== 0
-    && preg_match("/[0-9]/s", $_SESSION['pwd']) && preg_match("/([\!-\/]|[:-@])/s", $_SESSION['pwd']) !== 0)
+    if (preg_match("/[a-z]/s", $password) !== 0 && preg_match("/[A-Z]/s", $password) !== 0
+    && preg_match("/[0-9]/s", $password) && preg_match("/([\!-\/]|[:-@])/s", $password) !== 0)
       return (true);
     else
-      return (self::field_error("Mot de passe", "Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial"));
+      return (self::field_error($field, "Votre mot de passe doit contenir au moins une majuscule, une minuscule, un chiffre et un caractère spécial"));
   }
 
   public function first_name_checker($name)
@@ -210,7 +211,6 @@ class Form
 
   public static function are_connexion_fields_ok()
   {
-    print("je vais la");
     if (!isset($_POST['email']))
       return (self::field_error("Email", "Veuillez renseigner un email"));
     $_SESSION['email'] = htmlspecialchars($_POST['email']);

@@ -9,12 +9,15 @@ include_once("config/auth_config.php");
 
 <!-- Form -->
 <?php
-  if (isset($_GET['key']) && isset($_GET['p']) && $_GET['p'] == 'resetpwd')
-  {
-    $_POST['key'] = $_GET['key'];
+  if (isset($_GET['key']) && isset($_GET['p']) && $_GET['p'] == 'resetpwd') {
+    $key = $_GET['key'];
+    $keystr = "&key=".$key;
   }
-  $form = new Form("post", "index.php?p=resetpwd");
-  print("lala");
+  else {
+    $key = 1;
+    $keystr = "";
+  }
+  $form = new Form("post", "index.php?p=resetpwd".$keystr);
   if (isset($_POST['email']))
     $form->entry("Email", "email", "email", htmlspecialchars($_POST['email']));
   else
@@ -24,11 +27,9 @@ include_once("config/auth_config.php");
   $layout->white_space(1);
   $form->button("Envoyer");
   $layout->white_space(1);
-  print_r($_SESSION);
-  if ($_SESSION['connexion_status'] != "offline" && Form::are_connexion_fields_ok())
+  if ($_SESSION['connexion_status'] == "offline" && Form::are_connexion_fields_ok())
   {
-    print("hi");
-    if (($ret = $pdo->reset_pwd($_SESSION["email"], $_POST["pwd"], $_POST['key'])))
+    if (($ret = $pdo->reset_pwd($_SESSION["email"], $_POST["pwd"], $key)))
     {
       if ($ret == "mail")
         Form::field_error("Email", "Cet email ne correspond a aucun compte utilisateur");
@@ -37,10 +38,8 @@ include_once("config/auth_config.php");
       if ($ret =="invalid key")
         Form::field_error("Email", "Vous essayez de réinitialiser le mot de passe d'un compte qui ne vous appartient pas...");
     }
-    else
-      echo("<script>
-      window.location.replace('index.php?p=connexion_landing_page');
-      </script>");
+    else 
+      Form::validation_message("Votre mot de passe a bien été modifié.");
   }
   $_SESSION['connexion_status'] = "attempt";
 ?>

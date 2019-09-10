@@ -99,7 +99,7 @@ Class Bdd{
   {
       if ($this->user_exist($mail) != "mail")
         return ("mail");
-      $instruct = $this->db->query("SELECT password, confirmed, key FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
+      $instruct = $this->db->query("SELECT `password`, `confirmed`, `key` FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
       $datas = $instruct->fetchAll();
       if ($datas[0]['confirmed'] == 0)
         return ("unconfirm");
@@ -115,19 +115,20 @@ Class Bdd{
 
   public function reset_pwd($mail, $password, $key = '1', $table = "users", $db_name = "matcha")
   {
-    print("je passe la");
       if ($this->user_exist($mail) != "mail")
         return ("mail");
-      $instruct = $this->db->query("SELECT confirmed, key FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
+      $instruct = $this->db->query("SELECT `confirmed`, `key` FROM " . $db_name . "." . $table . " WHERE email = '" . $mail . "'");
       $datas = $instruct->fetchAll();
-      print($datas);
       if ($datas[0]['confirmed'] == 0)
         return ("unconfirm");
-      if ($datas[0]['key'] == $key)
+      if ($datas[0]['key'] != $key)
         return ("invalid key");
-      print("yes");
       $user_id = $this->get_user_field($mail, "id");
-      $this->alter_table($user_id, "password", password_hash(htmlspecialchars($password), PASSWORD_DEFAULT));
+      $pwd = password_hash(htmlspecialchars($password), PASSWORD_DEFAULT);
+      if (Form::password_checker(htmlspecialchars($password), true))
+        $this->alter_table($user_id, "password", $pwd);
+      else
+        return ("password");
       return (false);
   }
 
