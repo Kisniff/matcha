@@ -106,7 +106,7 @@ Class Bdd{
       if ($password == "I forgot my fucking password!!")
       {
         $key = $datas[0]['key'];
-        $this->send_mail($mail, 'Réinitialisez votre mot de passe.', 'resetpwd&key='.$key, "Réinitialisation de mot de passe");
+        return ($this->send_mail($mail, 'Réinitialisez votre mot de passe.', 'resetpwd&key='.$key, "Réinitialisation de mot de passe"));
       }
       else if (!password_verify(htmlspecialchars($password), $datas[0]['password']))
         return ("password");
@@ -290,6 +290,7 @@ Class Bdd{
   public static function send_mail($mail, $action, $page, $object)
   {
     // add send mail for confirm
+    print("send mail");
     $header="MIME-Version: 1.0\r\n";
     $header.='From: Matcha.com <support@matcha.com>'."\n";
     $header.='Content-Type:text/html; charset="uft-8"'."\n";
@@ -303,7 +304,8 @@ Class Bdd{
     </html>
     ';
     if ($mail = mail($mail, $object, $message, $header))
-      print('Un email vous a été envoyé ! </br> Veuillez vérifier votre boîte de réception pour confirmer votre email.');
+      // print('Un email vous a été envoyé ! </br> Veuillez vérifier votre boîte de réception pour confirmer votre email.');
+      return false;
     else
       print("L'envoi de l'email de confirmation à échoué ! </br> Veuillez vérifier si votre adresse mail est valide et rééssayez.");
   }

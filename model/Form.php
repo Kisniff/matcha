@@ -221,6 +221,15 @@ class Form
         return (true);
   }
 
+  public static function email_field_ok()
+  {
+    if (!isset($_POST['email']))
+      return (self::field_error("Email", "Veuillez renseigner un email"));
+    $_SESSION['email'] = htmlspecialchars($_POST['email']);
+    if (strlen($_POST['email']) > 0)
+        return (true);
+  }
+
   public static function field_error($id, $error_message)
   {
     echo("

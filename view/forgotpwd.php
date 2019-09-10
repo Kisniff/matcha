@@ -17,7 +17,8 @@ include_once("config/auth_config.php");
   $layout->white_space(1);
   $form->button("Envoyer");
   $layout->white_space(1);
-  if ($_SESSION['connexion_status'] != "offline" && Form::are_connexion_fields_ok())
+  // print_r($_SESSION);
+  if ($_SESSION['connexion_status'] == "offline" && Form::email_field_ok())
   {
     if (($ret = $pdo->are_logins_incorrect($_SESSION["email"], "I forgot my fucking password!!")))
     {
@@ -26,10 +27,8 @@ include_once("config/auth_config.php");
       if ($ret == "unconfirm")
         Form::field_error("Email", "Votre adresse mail n'a pas été confirmée, veuillez vérifier votre boîte de réception.");
     }
-    else
-      echo("<script>
-      window.location.replace('index.php?p=connexion_landing_page');
-      </script>");
+    else 
+      $form->validation_message("Un email vous a été envoyé ! </br> Veuillez vérifier votre boîte de réception pour réinitialiser votre mot de passe.");
   }
   $_SESSION['connexion_status'] = "attempt";
 ?>
