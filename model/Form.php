@@ -17,18 +17,30 @@ class Form
 
   public static function file($name, $action)
   {
+    // echo('
+    // <form method="POST" action="' . $action . '" enctype="multipart/form-data">
+    //  <input type="hidden" name="MAX_FILE_SIZE" value="100000">
+    //  Fichier : <input type="file" name="' . $name . '" accept=".jpg, .jpeg, .png">
+    //  <input type="submit" name="envoyer" value="Uploader !">
+    // </form>
+    // ');
     echo('
     <form method="POST" action="' . $action . '" enctype="multipart/form-data">
      <input type="hidden" name="MAX_FILE_SIZE" value="100000">
-     Fichier : <input type="file" name="' . $name . '">
-     <input type="submit" name="envoyer" value="Uploader !">
-    </form>
+						<label for="profilPict" class="label-file">Choisir une image</label>
+            <input type="file" id="profilPict" name="' . $name . '" class="upl_file" accept=".jpg, .jpeg, .png"><br/>
+            <div id="preview">
+					<p>Aucun fichier sélectionné pour le moment</p>
+				</div>
+            <input type="submit" name="envoyer" value="Uploader !">
+            </form>
     ');
 
   }
 
   public static function download_file($name, $id)
   {
+    print("je download");
     $images = Bdd::get_user_field_id($id, "images", "users_profile");
     $images = unserialize($images);
     if (!empty($images) && count($images) >= 5)

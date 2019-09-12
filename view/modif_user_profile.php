@@ -174,6 +174,41 @@ var bio = document.getElementById('Biographie');
 bio.style.whiteSpace ='normal';
 bio.value= '" . str_replace("\r", '\\n\\', $biographie) . "';
 </script>");
+echo("<script>
+var choose_file = document.getElementById('profilPict');
+var preview = document.getElementById('preview');
+console.log(choose_file);
+choose_file.addEventListener('change', updateImageDisplay);
+function updateImageDisplay() {
+    while (preview.firstChild) {
+      preview.removeChild(preview.firstChild);
+    }
+  
+    var curFiles = choose_file.files;
+    console.log(curFiles);
+    if(curFiles.length === 0) {
+      var para = document.createElement('p');
+      para.textContent = 'Aucun fichier sélectionné pour le moment';
+      preview.appendChild(para);
+    }
+    else {
+        var para = document.createElement('p');
+  
+        para.textContent = 'Nom du fichier ' + curFiles[0].name + ', taille du fichier ' + returnFileSize(curFiles[0].size) + '.';
+        preview.appendChild(para);  
+      }
+    }
+    function returnFileSize(number) {
+      if(number < 1024) {
+        return number + ' octets';
+      }
+      else if(number >= 1024 && number < 1048576) {
+        return (number/1024).toFixed(1) + ' Ko';
+      }
+      else if(number >= 1048576) {
+        return (number/1048576).toFixed(1) + ' Mo';
+      }
+    }</script>");
 $tags = preg_replace('/[\x00-\x1F\x7F-\xA0\xAD]/u', '', $tags);
 $tags = explode(", ", $tags);
 $tags_nb = count($tags);

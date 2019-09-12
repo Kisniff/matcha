@@ -233,3 +233,13 @@ input, option, select
   overflow-y: scroll;
   background-color: red;
  }
+
+ /* upload file */
+
+ .upl_file {
+  opacity: 0;
+}
+
+.label-file {
+  cursor: pointer;
+}
