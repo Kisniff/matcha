@@ -31,7 +31,7 @@ Class Bdd{
       last_name VARCHAR(256) NOT NULL,
       email VARCHAR(256) NOT NULL,
       confirmed boolean NOT NULL default 0,
-      `key` INT(20) NULL DEFAULT NULL,
+      `key` VARCHAR(30) NULL DEFAULT '0',
       location VARCHAR(256),
       password VARCHAR(256) NOT NULL,
       age INT,
