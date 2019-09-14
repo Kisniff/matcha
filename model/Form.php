@@ -40,7 +40,6 @@ class Form
 
   public static function download_file($name, $id)
   {
-    print("je download");
     $images = Bdd::get_user_field_id($id, "images", "users_profile");
     $images = unserialize($images);
     if (!empty($images) && count($images) >= 5)
