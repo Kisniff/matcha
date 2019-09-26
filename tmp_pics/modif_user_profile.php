@@ -40,7 +40,7 @@ if (isset($_FILES['photo']))
 if (($pics = Bdd::get_user_field_id($id, "images", "users_profile")))
 {
   $pics = unserialize($pics);
-  echo("<div class='row col-sm-12'>");
+  echo("<div class='row col-sm-12 pict-profil'>");
   foreach($pics as $pic)
     echo("<img class='col-sm-2' src='" . $pic . "'/>");
   echo("</div>");

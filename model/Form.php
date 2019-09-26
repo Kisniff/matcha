@@ -25,10 +25,10 @@ class Form
     // </form>
     // ');
     echo('
-    <form method="POST" action="' . $action . '" enctype="multipart/form-data">
+    <form method="POST" action="' . $action . '" enctype="multipart/form-data" style="text-align: center;">
      <input type="hidden" name="MAX_FILE_SIZE" value="100000">
 						<label for="profilPict" class="label-file">Choisir une image</label>
-            <input type="file" id="profilPict" name="' . $name . '" class="upl_file" accept=".jpg, .jpeg, .png"><br/>
+            <input class="input-file" type="file" id="profilPict" name="' . $name . '" class="upl_file" accept=".jpg, .jpeg, .png"><br/>
             <div id="preview">
 					<p>Aucun fichier sélectionné pour le moment</p>
 				</div>
@@ -48,6 +48,12 @@ class Form
     {
        $dossier = 'tmp_pics/';
        $fichier = basename($_FILES['photo']['name']);
+       $error_upload = "";
+       if ($_FILES['photo']['error'] == 2)
+        $error_upload = ", la taille de votre image excède 97 Ko";
+      else if ($_FILES['photo']['error'] == 4)
+        $error_upload = ", vous n'avez pas sélectionné d'image";
+      //  print_r($_FILES);
        if(move_uploaded_file($_FILES['photo']['tmp_name'], $dossier . $fichier))
        {
           if (mime_content_type($dossier . $fichier) != "image/png"
@@ -60,8 +66,8 @@ class Form
           $src = 'data: '.mime_content_type($dossier . $fichier).';base64,'.$im;
           Bdd::add_picture($src, $id);
         }
-        else
-          echo '<p class="error_message">Echec de l\'upload !</p>';
+        else if ($_FILES['photo']['error'] != 0)
+          echo '<p class="error_message" style="text-align: center; padding-top: 10px">Echec de l\'upload' .$error_upload. ' !</p>';
     }
   }
 

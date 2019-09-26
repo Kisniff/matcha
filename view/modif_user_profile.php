@@ -80,7 +80,7 @@ if ($_SESSION["page"] == "del_pic" && isset($_GET["id"]))
 if (($pics = Bdd::get_user_field_id($id, "images", "users_profile")))
 {
   $pics = unserialize($pics);
-  echo("<div class='row col-sm-12'>");
+  echo("<div class='row col-sm-12 pict-profil'>");
   $i = -1;
   if (is_array($pics))
   foreach($pics as $pic)
@@ -177,7 +177,7 @@ bio.value= '" . str_replace("\r", '\\n\\', $biographie) . "';
 echo("<script>
 var choose_file = document.getElementById('profilPict');
 var preview = document.getElementById('preview');
-console.log(choose_file);
+// console.log(choose_file);
 choose_file.addEventListener('change', updateImageDisplay);
 function updateImageDisplay() {
     while (preview.firstChild) {
@@ -192,10 +192,23 @@ function updateImageDisplay() {
       preview.appendChild(para);
     }
     else {
-        var para = document.createElement('p');
+        var filename = document.createElement('p');
   
-        para.textContent = 'Nom du fichier ' + curFiles[0].name + ', taille du fichier ' + returnFileSize(curFiles[0].size) + '.';
-        preview.appendChild(para);  
+        filename.textContent = 'Nom du fichier : ' + curFiles[0].name;
+        preview.appendChild(filename); 
+
+        var filesize = document.createElement('p');
+  
+        filesize.textContent = 'Taille du fichier : ' + returnFileSize(curFiles[0].size);
+        preview.appendChild(filesize); 
+        
+        if (curFiles[0].size > 100000) {
+          var errMes = document.createElement('p');
+
+          errMes.setAttribute('class', 'error_message')
+          errMes.textContent = 'La taille de votre image excède 97 Ko !';
+          preview.appendChild(errMes);
+        }
       }
     }
     function returnFileSize(number) {
