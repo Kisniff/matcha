@@ -187,15 +187,30 @@ input, option, select, label
   overflow-x:hidden;
 }
 
-#notif, #msg{
+#notif {
   position:absolute;
-  right: 10px;
-  top: 2px;
+  left: 28px;
+  top: -5px;
   background-color:#f2777a;
   color:white;
   border-radius:50px;
   padding-left:0.5vw;
   padding-right:0.5vw;
+}
+
+#msg {
+  position:absolute;
+  left: 40px;
+  top: -15px;
+  background-color:#f2777a;
+  color:white;
+  border-radius:50px;
+  padding-left:0.5vw;
+  padding-right:0.5vw;
+}
+
+#link {
+  position: relative;
 }
 
 .new_notif{
@@ -260,4 +275,18 @@ input, option, select, label
 .pict-profil {
   justify-content: center; 
   padding-top: 15px;
+}
+
+.icone-nav {
+  padding: 0;
+  max-width: 50px;
+}
+
+.icone-ring {
+  margin: 0px 50px 0px 0px;
+}
+
+.matcha {
+  min-width: 100px;
+  max-width: 150px;
 }

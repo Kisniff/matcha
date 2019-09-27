@@ -57,7 +57,7 @@ class Layout
           <div class="row navbar">
             <div class="col-sm-2">
               <div class="col-sm-1"></div>
-              <a href="index.php"><img class="col-sm-5" src="view/matcha_logo_navbar.png"/></a>
+              <a href="index.php"><img class="col-sm-4 matcha" src="view/matcha_logo_navbar.png"/></a>
             </div>
             <div class="col-sm-'. $size .' text-center"><a href="index.php" class="text-center">Accueil</a></div>
             <div class="col-sm-'. $size .' text-center"><a href="index.php?p=members" class="text-center">Membres</a></div>
@@ -71,14 +71,14 @@ class Layout
             <div class="col-sm-3 row">');
           if ($login_var == "Deconnexion")
           {
-              echo('<div class="col-sm-4 row"><a href="index.php?p=notifs">');
-                echo('<img class="col-sm-12" src="view/bell.png"/>');
-                echo('<div id="notif"></div>');
+              echo('<div class="col-xs-4 row icone-ring"><a id="link" href="index.php?p=notifs">');
+                echo('<img class="col-sm-12 icone-nav" src="view/bell.png"/>');
+                echo('<div id="notif">2</div>');
               echo('</a></div>');
-              echo('<div class="col-sm-2"></div>');
-              echo('<div class="col-sm-5"><a href="index.php?p=messages">
-              <img class="col-sm-12" src="view/mail_logo_navbar.png"/>
-              <div id="msg"></div>
+              // echo('<div class="col-sm-2"></div>');
+              echo('<div class="col-xs-4"><a id="link" href="index.php?p=messages">
+              <img class="col-sm-12 icone-nav" src="view/mail_logo_navbar.png"/>
+              <div id="msg">7</div>
               </a></div>');
           }
           echo('
