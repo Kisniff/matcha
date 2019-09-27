@@ -73,12 +73,12 @@ class Layout
           {
               echo('<div class="col-xs-4 row icone-ring"><a id="link" href="index.php?p=notifs">');
                 echo('<img class="col-sm-12 icone-nav" src="view/bell.png"/>');
-                echo('<div id="notif">2</div>');
+                echo('<div id="notif"></div>');
               echo('</a></div>');
               // echo('<div class="col-sm-2"></div>');
               echo('<div class="col-xs-4"><a id="link" href="index.php?p=messages">
               <img class="col-sm-12 icone-nav" src="view/mail_logo_navbar.png"/>
-              <div id="msg">7</div>
+              <div id="msg"></div>
               </a></div>');
           }
           echo('

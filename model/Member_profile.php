@@ -15,7 +15,11 @@ class Member_profile
   private static function display_likes()
   {
     $likes = unserialize(base64_decode(Bdd::get_user_field_id($_SESSION["member_id"], "likes", "users")));
-    $old_liked_users_id = unserialize(base64_decode(Bdd::get_field_with_conditions("users", "id_liked", "id = '" . $_SESSION['id'] . "'")[0]['id_liked']));
+    $users_likes = Bdd::get_field_with_conditions("users", "id_liked", "id = '" . $_SESSION['id'] . "'");
+    $old_liked_users_id = null;
+    if (isset($users_likes[0])) {
+      $old_liked_users_id = unserialize(base64_decode($users_likes[0]['id_liked']));
+    }
     $liked_users_id = self::to_array($old_liked_users_id);
     if (!isset($likes) || $likes == 0)
       $likes = 0;

@@ -19,8 +19,8 @@ else
 */
 $id_min = ($page == 0) ? 1 : $page * 6 + 1;
 $id_max = ($page + 1) * 6 + 2;
-$users_info = Bdd::get_field_with_conditions("users", "*", "id >= " . $id_min . "&& id < " . $id_max);
-$users_profile = Bdd::get_field_with_conditions("users_profile", "*",  "id >= " . $id_min . "&& id < " . $id_max);
+$users_info = Bdd::get_field_with_conditions("users", "*", "id >= " . $id_min . " && id < " . $id_max);
+$users_profile = Bdd::get_field_with_conditions("users_profile", "*",  "id >= " . $id_min . " && id < " . $id_max);
 
 /*
 ** Extended search

@@ -22,6 +22,7 @@ var msg = $("#msg")[0];
 
 function updateNotifs(text, statut)
 {
+  console.log("notif",text, status)
   notif.innerHTML = text;
 }
 
@@ -32,11 +33,13 @@ function getNotifs()
    type:'POST',
    dataType:'jsonp'
  });
+//  console.log("je passe la")
  request.done(updateNotifs);
 }
 
 function updateMessages(text, statut)
 {
+  console.log("msg",text, status)
   msg.innerHTML = text;
 }
 
