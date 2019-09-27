@@ -124,6 +124,8 @@ class Messages
 
   private static function not_connected_user_message($pic, $msg, $mini = null)
   {
+    if (is_array($pic))
+      $pic = $pic[0];
     echo("
     <div class='col-sm-12'>");
     if ($mini == null)
