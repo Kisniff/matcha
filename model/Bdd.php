@@ -233,6 +233,7 @@ Class Bdd{
       $query = "SELECT COUNT(" . $field . ") FROM " . $db . "." . $table;
     else
       $query = "SELECT COUNT(" . $field . ") FROM " . $db . "." . $table . " WHERE " . $condition;
+    // print($query);
     return ($bdd->query($query)->fetch()[0]);
   }
 

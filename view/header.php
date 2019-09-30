@@ -22,7 +22,7 @@ var msg = $("#msg")[0];
 
 function updateNotifs(text, statut)
 {
-  console.log("notif",text, status)
+  // console.log("notif",text, statut)
   notif.innerHTML = text;
 }
 
@@ -31,29 +31,33 @@ function getNotifs()
  var request = $.ajax({
    url:'ajax_script/get_notifs.php',
    type:'POST',
-   dataType:'jsonp'
+   dataType:'text'
  });
-//  console.log("je passe la")
+//  console.log("requete",request)
  request.done(updateNotifs);
 }
 
-function updateMessages(text, statut)
+function updateMessage(text, statut)
 {
-  console.log("msg",text, status)
+  // console.log("msg",text, statut)
   msg.innerHTML = text;
 }
 
 function getMessages()
 {
- var request = $.ajax({
+  // console.log("lala");
+ var request1 = $.ajax({
    url:'ajax_script/get_msg_notif.php',
    type:'POST',
    dataType:'text'
  });
- request.done(updateMessages);
+//  console.log("requete",request1)
+ request1.done(updateMessage);
 }
 
 getNotifs();
 getMessages();
 setInterval(getNotifs, 5000);
+
+setInterval(getMessages, 5000);
 </script>
