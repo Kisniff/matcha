@@ -98,7 +98,7 @@ echo("</div>");
  ** Appelée une fois la requete ajax terminée,
  ** traite le retour serveur
  */
- function updateMessage(code_html, statut)
+ function updateMessages(code_html, statut)
  {
     messages[0].innerHTML = code_html;
     scrollDown();
@@ -116,7 +116,7 @@ echo("</div>");
      type : 'POST',
      dataType : 'text'
    });
-   request.done(updateMessage);
+   request.done(updateMessages);
  }
 
  /*

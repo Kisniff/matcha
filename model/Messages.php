@@ -236,8 +236,8 @@ class Messages
     " AND id_member_b = " . $_SESSION["id_msg"] .
     " AND is_new = 1
     AND notif = 'msg'");
-    if (!empty($ret))
-      Bdd::del_notif($ret[0]['id']);
+    // if (!empty($ret))
+    //   Bdd::del_notif($ret[0]['id']);
     Bdd::add_notif($_SESSION["id"], $_SESSION["id_msg"], "msg");
   }
 

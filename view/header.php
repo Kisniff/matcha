@@ -37,13 +37,13 @@ function getNotifs()
  request.done(updateNotifs);
 }
 
-function updateMessage(text, statut)
+function updateNotifMessage(text, statut)
 {
   // console.log("msg",text, statut)
   msg.innerHTML = text;
 }
 
-function getMessages()
+function getNotifMessage()
 {
   // console.log("lala");
  var request1 = $.ajax({
@@ -52,12 +52,12 @@ function getMessages()
    dataType:'text'
  });
 //  console.log("requete",request1)
- request1.done(updateMessage);
+ request1.done(updateNotifMessage);
 }
 
 getNotifs();
-getMessages();
+getNotifMessage();
 setInterval(getNotifs, 5000);
 
-setInterval(getMessages, 5000);
+setInterval(getNotifMessage, 5000);
 </script>
