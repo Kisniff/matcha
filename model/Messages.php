@@ -49,12 +49,18 @@ class Messages
 
   public static function get_user_pic($matched_user_picture)
   {
-    if (!$matched_user_picture && (empty($matched_user_picture[0]['images'])))
-      $matched_user_picture = 'view/matcha_logo';
     if (isset($matched_user_picture[0]['images']))
       return (unserialize($matched_user_picture[0]['images']));
-    if (is_array($matched_user_picture))
-      return ('view/matcha_logo');
+    else if (isset($matched_user_picture[0]))
+      return ($matched_user_picture[0]);
+    // $pict = (isset($matched_user_picture[0]['images'])) ? $matched_user_picture[0]['images'] : $matched_user_picture[0];
+    // print($pict);
+    // if (!$matched_user_picture && (empty($matched_user_picture[0])))
+    //   $matched_user_picture = 'view/matcha_logo.png';
+    // if (isset($pict))
+    //   return (unserialize($pict));
+    // if (is_array($matched_user_picture))
+    //   return ('view/matcha_logo.png');
     return ($matched_user_picture);
   }
 
@@ -67,8 +73,11 @@ class Messages
     {
       echo("<div class='col-sm-12 row'>");
       $matched_user_login = Bdd::get_field_with_conditions("users", "login", "id = '" . $match . "'")[0]['login'];
+      // $BAAA = Bdd::get_field_with_conditions("users_profile", "images", "id = '" . $match . "'");
+      // print_r(unserialize(Bdd::get_field_with_conditions("users_profile", "images", "id = '" . $match . "'")[0]['images']));
       $matched_user_picture = self::get_user_pic(unserialize(Bdd::get_field_with_conditions("users_profile", "images", "id = '" . $match . "'")[0]['images']));
       echo("<div class='col-sm-1'></div>");
+      // print($matched_user_picture);
       $notifs = bdd::get_field_with_conditions("notifications", "id_member_a",
       "id_member_b = " . $_SESSION['id'] .
       " AND is_new = 1 AND id_member_a = " . $match);

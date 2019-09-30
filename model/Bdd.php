@@ -223,6 +223,7 @@ Class Bdd{
   {
     $bdd = new Bdd;
     $query = "SELECT " . $field . " FROM " . $db . "." . $table . " WHERE (" . $condition . ") ORDER BY id " . $order;
+    // print($query);
     return ($bdd->query($query)->fetchAll());
   }
 
