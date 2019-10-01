@@ -41,6 +41,8 @@
 
 .link-msg {
   padding: 0px 5px 0px 0px;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .self-img-msg {
