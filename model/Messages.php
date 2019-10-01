@@ -76,14 +76,14 @@ class Messages
       // $BAAA = Bdd::get_field_with_conditions("users_profile", "images", "id = '" . $match . "'");
       // print_r(unserialize(Bdd::get_field_with_conditions("users_profile", "images", "id = '" . $match . "'")[0]['images']));
       $matched_user_picture = self::get_user_pic(unserialize(Bdd::get_field_with_conditions("users_profile", "images", "id = '" . $match . "'")[0]['images']));
-      echo("<div class='col-sm-1'></div>");
+      // echo("<div class='col-sm-1'></div>");
       // print($matched_user_picture);
       $notifs = bdd::get_field_with_conditions("notifications", "id_member_a",
       "id_member_b = " . $_SESSION['id'] .
       " AND is_new = 1 AND id_member_a = " . $match);
       echo("
-      <a class='no-deco' href='index.php?p=messages&id=" . $match . "'>
-      <div class='col-sm-11 row'>");
+      <a class='no-deco col-sm-12' style='padding: 0;' href='index.php?p=messages&id=" . $match . "'>
+      <div class='col-sm-12 row'>");
       echo("<img class='col-sm-5 mini_pic' src='" . $matched_user_picture . "'>");
       if (empty($notifs) || $_SESSION['id_msg'] == $match)
         echo("<p class='sub-title'>" . $matched_user_login . "</p>");
@@ -163,7 +163,7 @@ class Messages
     if (is_array($pic))
       $pic = $pic[0];
     echo("
-    <div class='col-sm-12 row'>");
+    <div class='col-sm-12 row self-msg'>");
     if ($mini == null)
     {
     echo("

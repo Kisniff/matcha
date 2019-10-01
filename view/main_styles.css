@@ -34,7 +34,7 @@
 }
 
 .message_pic{
-    max-width: 80px;
+    max-width: 55px;
     border-radius:50px;
     padding: 0;
 }
@@ -45,6 +45,16 @@
 
 .self-img-msg {
   padding: 0px 0px 0px 5px;
+}
+
+.self-msg {
+  padding: 0;
+  margin: 0;
+}
+
+.row {
+  margin: 0;
+  padding: 0;
 }
 
 a:hover{

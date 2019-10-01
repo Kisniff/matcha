@@ -49,7 +49,7 @@ echo('</div>');
 ** Messages section
 */
 echo('<div class="col-sm-8">');
-echo('<div class="col-sm-12 dark_bg scroller" id="messages" style="height:' . $boxes_height . '; overflow-y:scroll">');
+echo('<div class="col-sm-12 dark_bg scroller" id="messages" style="height:' . $boxes_height . '; overflow-y:scroll; padding-top: 20px;">');
 echo('<div class="col-sm-12">');
 /*
 ** our messages will be displayed here
