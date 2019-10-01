@@ -69,6 +69,7 @@ Class Members{
       $countdown =  count($users_profile) - 1;
       if ($countdown <= 0)
         $countdown = 1;
+      else $countdown = $nb_photos_to_display;
       $images = self::fill_image_array($users_profile, $users_info);
       $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown;
       $j = 0;
