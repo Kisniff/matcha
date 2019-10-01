@@ -30,14 +30,22 @@
 }
 
 .mini_pic{
-    width:auto;
+  max-width: 110px;
 }
 
 .message_pic{
-    width:auto;
+    max-width: 80px;
     border-radius:50px;
+    padding: 0;
 }
 
+.link-msg {
+  padding: 0px 5px 0px 0px;
+}
+
+.self-img-msg {
+  padding: 0px 0px 0px 5px;
+}
 
 a:hover{
   color:#de935f;

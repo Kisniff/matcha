@@ -136,20 +136,20 @@ class Messages
     if (is_array($pic))
       $pic = $pic[0];
     echo("
-    <div class='col-sm-12'>");
+    <div class='col-sm-12 row'>");
     if ($mini == null)
     {
-    echo("
-      <div class='col-sm-4 clear_bg message'>" . $msg[1] . "</div>");
-      echo("<div class='col-sm-5 row'>");
-        echo("<div class='col-sm-9'></div>");
-        echo("<a class='col-sm-3 message_pic' href='index.php?p=member_profile&id=" . $_SESSION['id_msg'] . "'><img class='col-sm-12 message_pic' src='" . $pic . "'></a>");
-      echo("</div>");
+    // echo("
+    //   <div class='col-sm-4 clear_bg message'>" . $msg[1] . "</div>");
+      // echo("<div class='col-sm-5'>");
+        echo("<a class='col-sm-1 link-msg' href='index.php?p=member_profile&id=" . $_SESSION['id_msg'] . "'><img class='col-sm-12 message_pic' src='" . $pic . "'></a>");
+      // echo("</div>");
+      echo("<div class='col-sm-4 clear_bg message'>" . $msg[1] . "</div>");
     }
     else
     {
     echo("
-      <div class='col-sm-12 row'>
+      <div class='col-sm-12'>
       <img class='col-sm-3 message_pic' src='" . $pic . "'>
       <div class='col-sm-9 clear_bg message'>" . $msg[1] . "</div>");
       echo("</div>");
@@ -169,9 +169,9 @@ class Messages
     echo("
       <div class='col-sm-7'></div>
       <div class='col-sm-4 clear_bg message'>" . $msg[1] . "</div>");
-      echo("<div class='col-sm-7'></div>");
-      echo("<div class='col-sm-5 row'>");
-        echo("<div class='col-sm-10'></div>");
+      // echo("<div class='col-sm-7'></div>");
+      echo("<div class='col-sm-1 self-img-msg'>");
+        // echo("<div class='col-sm-10'></div>");
         echo("<img class='col-sm-2 message_pic' src='" . $pic . "'>");
         echo("</div>");
     }
