@@ -312,16 +312,40 @@ Class Bdd{
       print("L'envoi de l'email de confirmation à échoué ! </br> Veuillez vérifier si votre adresse mail est valide et rééssayez.");
   }
 
-  public static function add_notif($id_member_a, $id_member_b, $notif, $database = "matcha")
+  public static function add_notif($id_member_a, $id_member_b, $notif, $is_new = 1, $database = "matcha")
   {
     $db = new Bdd();
-    $query = "INSERT INTO " . $database . ".notifications VALUES(id, :id_member_a, :id_member_b, is_new, :notif)";
-    $instruct = $db->prepare($query);
-    $instruct->bindParam(':id_member_a', $id_member_a, PDO::PARAM_INT);
-    $instruct->bindParam(':id_member_b', $id_member_b, PDO::PARAM_INT);
-    $instruct->bindParam(':notif', $notif, PDO::PARAM_STR);
-    $instruct->execute();
+    $id_notif = null;
+    if ($notif == 'msg') {
+      $query = "SELECT `id` FROM `notifications` WHERE id_member_a = " . $id_member_a . " AND id_member_b = " . $id_member_b . " AND notif = 'msg'";
+      print($query);
+      $instruct = $db->query($query);
+      $id_notif = $instruct->fetchAll();
+      print($id_notif);
+    }
+    if ($id_notif[0])
+      self::alter_table($id_notif[0], `is_new`, `is_new + 1`, "notifications", true);
+    else {
+      $query = "INSERT INTO " . $database . ".notifications VALUES(id, :id_member_a, :id_member_b, :is_new, :notif)";
+      print($notif);
+      print_r($id_notif);
+      $instruct = $db->prepare($query);
+      $instruct->bindParam(':id_member_a', $id_member_a, PDO::PARAM_INT);
+      $instruct->bindParam(':id_member_b', $id_member_b, PDO::PARAM_INT);
+      $instruct->bindParam(':is_new', $is_new, PDO::PARAM_INT);
+      $instruct->bindParam(':notif', $notif, PDO::PARAM_STR);
+      $instruct->execute();
+    }
+    
   }
+
+  public static function verif_conversation_exist($id_member_a, $id_member_b) {
+    
+    $query = "INSERT INTO " . $database . ".notifications VALUES(id, :id_member_a, :id_member_b, :is_new, :notif)";
+    // print($query);
+    $instruct = $db->prepare($query);
+  }
+
 
   public static function del_notif($id, $database = "matcha")
   {

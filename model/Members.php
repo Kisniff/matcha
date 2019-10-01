@@ -71,7 +71,7 @@ Class Members{
         $countdown = 1;
       else $countdown = $nb_photos_to_display;
       $images = self::fill_image_array($users_profile, $users_info);
-      $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown;
+      $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown; // pourquoi ?
       $j = 0;
       $i = -1;
       while ($countdown > 0)
