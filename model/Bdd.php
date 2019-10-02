@@ -172,6 +172,7 @@ Class Bdd{
     else if ($table == 'notifications')
     {
       $instruct = "UPDATE " . $db . "." . $table . " SET " . $column . " = " . $value . " WHERE id = " . $id;
+      // print($instruct);
       $instruct = (new self)->query($instruct);
     }
     else if ($column == 'confirmed')

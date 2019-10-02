@@ -80,7 +80,7 @@ class Messages
       // print($matched_user_picture);
       $notifs = bdd::get_field_with_conditions("notifications", "id_member_a",
       "id_member_b = " . $_SESSION['id'] .
-      " AND is_new = 1 AND id_member_a = " . $match);
+      " AND is_new > 0 AND id_member_a = " . $match);
       echo("
       <a class='no-deco col-sm-12' style='padding: 0;' href='index.php?p=messages&id=" . $match . "'>
       <div class='col-sm-12 row'>");
@@ -229,24 +229,40 @@ class Messages
     echo("</div>");
   }
 
+  function sum($carry, $item)
+  {
+      $carry['is_new'] += $item['is_new'];
+      return $carry['is_new'];
+  }
+
   public static function count_new_msg_notif()
   {
-    $datas = Bdd::get_field_with_conditions("notifications", "*", "id_member_b = " . $_SESSION['id'] . " AND is_new > 0 AND notif = 'msg'");
-    // print_r($datas);
-    if (isset($datas['is_new'])) {
-      echo($datas['is_new']);
-    }
-    else
+    $datas = Bdd::get_field_with_conditions("notifications", "is_new", "id_member_b = " . $_SESSION['id'] . " AND is_new > 0 AND notif = 'msg'");
+    if (empty($datas)) {
       return;
+    }
+    else {
+      $arr = array_map(function($value)
+      {
+        return $value['is_new'];
+      }, $datas);
+      $nb_msg = array_reduce(
+        $arr,
+        function($res, $a) { return $res + $a;  },
+        0
+      );
+      echo $nb_msg;
+    }
   }
 
   private static function send_notif()
   {
-    $ret = Bdd::get_field_with_conditions("notifications", "*",
-    "id_member_a = " . $_SESSION["id"] .
-    " AND id_member_b = " . $_SESSION["id_msg"] .
-    " AND is_new = 1
-    AND notif = 'msg'");
+    // $ret = Bdd::get_field_with_conditions("notifications", "*",
+    // "id_member_a = " . $_SESSION["id"] .
+    // " AND id_member_b = " . $_SESSION["id_msg"] .
+    // " AND is_new > 0
+    // AND notif = 'msg'");
+    // print_r($ret);
     // if (!empty($ret))
     //   Bdd::del_notif($ret[0]['id']);
     Bdd::add_notif($_SESSION["id"], $_SESSION["id_msg"], "msg");
@@ -284,10 +300,12 @@ class Messages
 
   public static function erase_new_msg_notif()
   {
+    // print("je passe la");
     $notifs = Bdd::get_field_with_conditions("notifications", "*",
     "id_member_b = " . $_SESSION["id"] .
     " AND id_member_a = " . $_SESSION["id_msg"] . "
-    AND is_new = 1 AND notif = 'msg'", "DESC");
+    AND is_new > 0 AND notif = 'msg'", "DESC");
+    // print_r($notifs);
     foreach ($notifs as $n)
     {
       Bdd::alter_table($n['id'], "is_new", 0, "notifications");
