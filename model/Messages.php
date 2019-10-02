@@ -231,12 +231,13 @@ class Messages
 
   public static function count_new_msg_notif()
   {
-    $count_field = Bdd::count_field("id", "notifications", "id_member_b = " . $_SESSION['id'] . " AND is_new > 0 AND notif = 'msg'");
-    if ($count_field == "undefined")
-      return ;
-    // $nb_total_msg = 
-    if (intval($count_field) > 0)
-      echo($count_field);
+    $datas = Bdd::get_field_with_conditions("notifications", "*", "id_member_b = " . $_SESSION['id'] . " AND is_new > 0 AND notif = 'msg'");
+    // print_r($datas);
+    if (isset($datas['is_new'])) {
+      echo($datas['is_new']);
+    }
+    else
+      return;
   }
 
   private static function send_notif()
