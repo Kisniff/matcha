@@ -169,6 +169,11 @@ Class Bdd{
       $instruct->bindParam(':value', $value, PDO::PARAM_STR);
       $instruct->execute();
     }
+    else if ($table == 'notifications')
+    {
+      $instruct = "UPDATE " . $db . "." . $table . " SET " . $column . " = " . $value . " WHERE id = " . $id;
+      $instruct = (new self)->query($instruct);
+    }
     else if ($column == 'confirmed')
     {
       $statement = "UPDATE " . $db . "." . $table . " SET " . $column . " = 1 WHERE id = " . $id . " AND `key` = :value";
@@ -317,14 +322,12 @@ Class Bdd{
     $db = new Bdd();
     $id_notif = null;
     if ($notif == 'msg') {
-      $query = "SELECT `id` FROM `notifications` WHERE id_member_a = " . $id_member_a . " AND id_member_b = " . $id_member_b . " AND notif = 'msg'";
-      print($query);
+      $query = "SELECT `id` FROM " . $database . ".`notifications` WHERE id_member_a = " . $id_member_a . " AND id_member_b = " . $id_member_b . " AND notif = 'msg'";
       $instruct = $db->query($query);
-      $id_notif = $instruct->fetchAll();
-      print($id_notif);
+      $id_notif = $instruct->fetch();
     }
     if ($id_notif[0])
-      self::alter_table($id_notif[0], `is_new`, `is_new + 1`, "notifications", true);
+      self::alter_table($id_notif[0], "is_new", "`is_new` + 1", "notifications");
     else {
       $query = "INSERT INTO " . $database . ".notifications VALUES(id, :id_member_a, :id_member_b, :is_new, :notif)";
       print($notif);
