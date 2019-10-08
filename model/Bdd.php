@@ -60,7 +60,7 @@ Class Bdd{
       id INT AUTO_INCREMENT PRIMARY KEY,
       id_member_a INT default 0,
       id_member_b INT default 0,
-      is_new BOOL default 1,
+      is_new INT default 1,
       notif LONGTEXT DEFAULT null)";
     $this->query($query);
     $this->add_user("root@root.com", "root", "root", "root", "root", "users", 1);
@@ -275,8 +275,9 @@ Class Bdd{
     $key = "";
     for($i=1 ; $i<15 ; $i++)
     $key .= mt_rand(0,9);
-
-    $mdp = password_hash(htmlspecialchars($mdp), PASSWORD_DEFAULT);
+    $old = $mdp;
+    $mdp = password_hash($mdp, PASSWORD_DEFAULT);
+    $mdp = str_replace("'", "", $mdp);
     $query = "INSERT INTO matcha." . $table . " VALUES (id, :login, :first_name, :last_name, :mail, :bool, :key, location, :pwd, age, likes, matches, likes_nb, id_liked, reported_by_id, blocked_id)";
     $instruct = $this->db->prepare($query);
     $instruct->bindParam(':login', $login, PDO::PARAM_STR);
@@ -285,8 +286,9 @@ Class Bdd{
     $instruct->bindParam(':mail', $mail, PDO::PARAM_STR);
     $instruct->bindParam(':bool', $bool, PDO::PARAM_STR);
     $instruct->bindParam(':key', $key, PDO::PARAM_STR);
-    $instruct->bindParam(':pwd', $mdp, PDO::PARAM_STR);
+    $instruct->bindValue(':pwd', $mdp, PDO::PARAM_STR);
     $instruct->execute();
+    
     $query = "INSERT INTO matcha.users_profile VALUES(id, genre, orientation, null, null, null);";
     $instruct = $this->query($query);
 
