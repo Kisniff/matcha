@@ -295,6 +295,28 @@ class Form
 
   }
 
+  public function search_field($name)
+  {
+    echo("<div class='row'>
+      <div class='col-sm-1'></div>
+      <label class='col-sm-4'>" . $name . "</label>");
+  //   echo('<div class="col-sm-7" id="locationField">
+  //   <input 
+  //     list="adresses"
+  //     placeholder="Enter your address"
+  //     type="text" />
+  //   <datalist id="adresses">
+  //     <select>
+        
+  //     </select>
+  //   </datalist>
+  // </div></div>');
+  echo('<div class="autocomplete col-sm-7" style="width:300px;" id="locationField">
+  <input id="myInput" type="text" name="myCountry" placeholder="Country">
+</div></div>');
+  $this->layout->white_space(1);
+  }
+
   public function textarea($name, $content, $rows = 10)
   {
     echo("<div class='row'>

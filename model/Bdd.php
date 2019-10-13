@@ -313,9 +313,11 @@ Class Bdd{
       </body>
     </html>
     ';
-    if ($mail = mail($mail, $object, $message, $header))
-      // print('Un email vous a été envoyé ! </br> Veuillez vérifier votre boîte de réception pour confirmer votre email.');
+
+    if ($mail = mail($mail, $object, $message, $header)) {
+      // print("j'ai envoyé le mail");
       return false;
+    }
     else
       print("L'envoi de l'email de confirmation à échoué ! </br> Veuillez vérifier si votre adresse mail est valide et rééssayez.");
   }

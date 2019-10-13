@@ -12,6 +12,7 @@ $form->select("Genre",   array("non-binaire", "homme cisgenre", "femme cisgenre"
 "femme trans", "genderfluid"));
 $form->select("Orientation",   array("pansexuel.le", "bisexuel.le", "asexuel.le",
 "homosexuel.le", "hétérosexuel.le"));
+$form->search_field("Localisation");
 $form->textarea("Biographie", "Décrivez-vous ici ... ;)");
 
 /*
@@ -27,21 +28,96 @@ function updateIp(response, status)
   return ip;
 }
 
+const locField = $('#locationField input');
+// const locationResultsList = $('#locationField datalist');
 
+locField.on('input', function(ev) {
+  console.log('trigger')
+  // locationResultsList.find('select').empty();
+  fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + ev.target.value + '.json?access_token=pk.eyJ1IjoibWMxMDBzIiwiYSI6ImNqb2E2ZTF3ODBxa3czd2xldHp1Z2FxbGYifQ.U4oatm5RsTXXHQLz5w66dQ')
+    .then(res => res.json())
+    .then(res => {
 
-function getIp()
-{
-  var addr = 'http://www.geoplugin.com/';
-  var request = $.ajax({
-    beforeSend: function(xhr){xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://www.geoplugin.com/');},
-    url:addr,
-    type:'GET',
-    dataType:'json'
+      // locationResultsList.find('select').append(
+      //   var countries = res.features.map(f => $('<option value=\"'+ f.place_name +'\">'+ f.place_name +'</option>'))
+      // );
+
+      var countries = res.features.map(f => f.place_name)
+
+      autocomplete(document.getElementById('myInput'), countries, this);
+
+    })
+})
+
+function autocomplete(inp, arr, h) {
+  console.log(arr, inp);
+  var currentFocus;
+  
+  // inp.addEventListener('input', function(e) {
+      var a, b, i, val = h.value;
+      
+      closeAllLists();
+      if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement('DIV');
+      a.setAttribute('id', h.id + 'autocomplete-list');
+      a.setAttribute('class', 'autocomplete-items');
+      h.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement('DIV');
+          b.innerHTML = '<strong>' + arr[i].substr(0, val.length) + '</strong>';
+          b.innerHTML += arr[i].substr(val.length);
+          b.innerHTML += '<input type=\"hidden\" value=\"' + arr[i] + '\">';
+          b.addEventListener('click', function(e) {
+              inp.value = this.getElementsByTagName('input')[0].value;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+  // });
+  inp.addEventListener('keydown', function(e) {
+      var x = document.getElementById(this.id + 'autocomplete-list');
+      if (x) x = x.getElementsByTagName('div');
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
   });
-  var ip = request.done(updateIp);
-}
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add('autocomplete-active');
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove('autocomplete-active');
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName('autocomplete-items');
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
 
-getIp();
+  document.addEventListener('click', function (e) {
+      closeAllLists(e.target);
+  });
+}
 </script>");
 
 $form->entry("Tags", "text", "tags", null, "Séparez vos tags par une virgule");

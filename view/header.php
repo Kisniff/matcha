@@ -14,6 +14,7 @@
 
   if (Session_status::is_connected() == false)
     return ;
+
 ?>
 
 <script>

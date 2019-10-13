@@ -18,12 +18,25 @@ function getPos(pos)
   var position = pos.coords.latitude + ", " + pos.coords.longitude + ", " + pos.coords.accuracy;
   var loc = document.getElementById("location");
   loc.value = (position);
+  console.log(position)
 }
 
 if (navigator.geolocation)
 {
-  navigator.geolocation.getCurrentPosition(getPos);
+  var localisation = navigator.geolocation.getCurrentPosition(getPos);
 }
 else
   alert("crotte");
+
+//   function getNotifMessage()
+// {
+//   // console.log("lala");
+//  var request1 = $.ajax({
+//    url:'ajax_script/get_msg_notif.php',
+//    type:'POST',
+//    dataType:'text'
+//  });
+// //  console.log("requete",request1)
+//  request1.done(updateNotifMessage);
+// }
 </script>
