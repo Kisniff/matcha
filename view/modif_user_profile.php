@@ -29,35 +29,38 @@ function updateIp(response, status)
 }
 
 const locField = $('#locationField input');
-// const locationResultsList = $('#locationField datalist');
 
 locField.on('input', function(ev) {
   console.log('trigger')
-  // locationResultsList.find('select').empty();
-  fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + ev.target.value + '.json?access_token=pk.eyJ1IjoibWMxMDBzIiwiYSI6ImNqb2E2ZTF3ODBxa3czd2xldHp1Z2FxbGYifQ.U4oatm5RsTXXHQLz5w66dQ')
-    .then(res => res.json())
-    .then(res => {
+  if (ev.target.value) {
+    fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + ev.target.value + '.json?access_token=pk.eyJ1IjoibWMxMDBzIiwiYSI6ImNqb2E2ZTF3ODBxa3czd2xldHp1Z2FxbGYifQ.U4oatm5RsTXXHQLz5w66dQ')
+      .then(res => res.json())
+      .then(res => {
+        if (res.features) {
+          var countries = res.features.map(f => f.place_name)
 
-      // locationResultsList.find('select').append(
-      //   var countries = res.features.map(f => $('<option value=\"'+ f.place_name +'\">'+ f.place_name +'</option>'))
-      // );
+          autocomplete(document.getElementById('myInput'), countries, this);
+        }
+      })
+  }
+  else
+    autocomplete(document.getElementById('myInput'), ['Ma position'], this);
+})
 
-      var countries = res.features.map(f => f.place_name)
-
-      autocomplete(document.getElementById('myInput'), countries, this);
-
-    })
+locField.on('click', function(ev) {
+  console.log('click')
+  autocomplete(document.getElementById('myInput'), ['Ma position'], this);
 })
 
 function autocomplete(inp, arr, h) {
   console.log(arr, inp);
   var currentFocus;
   
-  // inp.addEventListener('input', function(e) {
       var a, b, i, val = h.value;
+      console.log(val)
       
       closeAllLists();
-      if (!val) { return false;}
+      // if (!val) { return false;}
       currentFocus = -1;
       a = document.createElement('DIV');
       a.setAttribute('id', h.id + 'autocomplete-list');
@@ -76,7 +79,7 @@ function autocomplete(inp, arr, h) {
           a.appendChild(b);
         }
       }
-  // });
+
   inp.addEventListener('keydown', function(e) {
       var x = document.getElementById(this.id + 'autocomplete-list');
       if (x) x = x.getElementsByTagName('div');
