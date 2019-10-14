@@ -18,7 +18,7 @@ Class Members{
       return ($images);
     }
 
-    private static function display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type)
+    private static function display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info)
     {
         echo("
         <div class='col-sm-12 row'>
@@ -37,6 +37,7 @@ Class Members{
             echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
           echo("
               <img class='col-sm-12 rounded photo' src='" . $images[$i + $j] . "'/>
+              <figcaption class='pictcaption'>".$users_info[$i]['login']."</figcaption>
             </a>
           </th>
           ");
@@ -76,8 +77,8 @@ Class Members{
       $i = -1;
       while ($countdown > 0)
       {
-        self::display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type);
-        self::display_logins($nb_photos_to_display, $users_info, $j);
+        self::display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
+        // self::display_logins($nb_photos_to_display, $users_info, $j);
         echo("
         </tr>
         </table>

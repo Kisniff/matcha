@@ -72,8 +72,19 @@ a{
   background-color:#1d1f21;
   color:#b294bb;
   margin : 2%;
-  padding-left: 0;
+  padding: 0;
 }
+.pic a{
+  display: flex;
+  position: relative;
+  min-width: 370px;
+}
+.pictcaption {
+  position: absolute;
+  top: 102%;
+  left: 43%;
+}
+
 .login_likes{
   margin : 2%;
 }

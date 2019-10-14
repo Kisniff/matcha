@@ -301,7 +301,7 @@ class Form
       <div class='col-sm-1'></div>
       <label class='col-sm-4'>" . $name . "</label>");
     echo('<div class="autocomplete col-sm-7" id="locationField">
-        <input id="myInput" style="width: 100%; padding: 0px 10px 0px 10px;" type="text" name="location" placeholder="Ville">
+        <input id="myInput" style="width: 100%; padding: 0px 10px 0px 10px;" type="text" name="location" placeholder="Ville" autocomplete="off">
       </div></div>');
   $this->layout->white_space(1);
   }
