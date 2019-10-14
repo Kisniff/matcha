@@ -116,9 +116,37 @@ function autocomplete(inp, arr, h) {
       }
     }
   }
+  function getPos(pos)
+  {
+    fetch('https://api.opencagedata.com/geocode/v1/json?q=' + pos.coords.latitude + '+' + pos.coords.longitude + '&key=a1674daf25f54056a7c8047ca1742c22&no_annotations=1&language=fr')
+      .then(res => res.json())
+      .then(res => {
+        let component = res.results[0].components;
+        document.getElementById('myInput').value = 'Ma position - ' + component.house_number + ' ' + component.street + ', ' + component.postcode + ' '+ component.city + ' - ' + component.country;
+      })
+  }
+
+  function getGeoip(ip) {
+    fetch('https://freegeoip.app/json/' + ip)
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('myInput').value = 'Ma position - ' + res.zip_code + ' ' + res.city + ', ' + res.country_name;
+      })
+  }
+
+  function getIp(pos) {
+    fetch('https://api.ipify.org/?format=json')
+      .then(res => res.json())
+      .then(res => {
+        getGeoip(res.ip);
+      })
+  }
 
   document.addEventListener('click', function (e) {
-      closeAllLists(e.target);
+    if (e.target.textContent == 'Ma position') {
+      var localisation = navigator.geolocation.getCurrentPosition(getPos, getIp);
+    }
+    closeAllLists(e.target);
   });
 }
 </script>");
