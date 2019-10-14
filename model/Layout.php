@@ -10,7 +10,7 @@ class Layout
       echo("</div>");
     }
 
-    public function sub_title($sub_title, $class = null)
+    public function sub_title($sub_title, $space = 2, $class = null)
     {
         if (!$class)
           $class = "text-center";
@@ -21,11 +21,13 @@ class Layout
           </div>
         </div>
         ');
-        $this->white_space(2);
+        $this->white_space($space);
     }
 
     public function main_title($title, $sub_title = null)
     {
+      if ($title == "Photos")
+        $this->white_space(2);
       echo('
         <div class="container col-sm-12">
           <div class="row">
@@ -36,7 +38,7 @@ class Layout
       if ($sub_title == null)
         $this->white_space(3);
       else
-        $this->sub_title($sub_title);
+        $this->sub_title($sub_title, 0);
     }
 
     public function nav_bar()

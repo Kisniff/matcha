@@ -48,16 +48,13 @@ locField.on('input', function(ev) {
 })
 
 locField.on('click', function(ev) {
-  console.log('click')
   autocomplete(document.getElementById('myInput'), ['Ma position'], this);
 })
 
 function autocomplete(inp, arr, h) {
-  console.log(arr, inp);
   var currentFocus;
   
       var a, b, i, val = h.value;
-      console.log(val)
       
       closeAllLists();
       // if (!val) { return false;}
