@@ -301,7 +301,7 @@ class Form
       <div class='col-sm-1'></div>
       <label class='col-sm-4'>" . $name . "</label>");
     echo('<div class="autocomplete col-sm-7" id="locationField">
-        <input id="myInput" style="width: 100%; padding: 0px 10px 0px 10px;" type="text" name="myCountry" placeholder="Ville">
+        <input id="myInput" style="width: 100%; padding: 0px 10px 0px 10px;" type="text" name="location" placeholder="Ville">
       </div></div>');
   $this->layout->white_space(1);
   }
@@ -343,12 +343,12 @@ class Form
     }
     if (isset($_POST['location']))
     {
-      $location_post = explode(", ", htmlspecialchars($_POST['location']));
+      $location_post = explode(", ", explode(" - ", htmlspecialchars($_POST['location']))[1]);
       if (count($location_post == 3))
         $location_aray = array(
-        "Latitude" => $location_post[0],
-        "Longitude" => $location_post[1],
-        "Precision" => $location_post[2]
+        "postcode" => $location_post[0],
+        "city" => $location_post[1],
+        "country" => $location_post[2]
         );
       Bdd::alter_table($user_id, "location", serialize($location_aray));
     }
@@ -440,6 +440,25 @@ class Form
         $new_tags = $tags;
       if (strlen($tags) > 0)
         Bdd::alter_table($user_id, "tags", $new_tags, "users_profile");
+    }
+    if (isset($_POST['location']))
+    {
+      $location_post = explode(", ", explode(" - ", htmlspecialchars($_POST['location']))[1]);
+      if (count($location_post) == 3)
+        $location_array = array(
+        "adress" => $location_post[0],
+        "postcode" => explode(" ", $location_post[1])[0],
+        "city" => explode(" ", $location_post[1])[1],
+        "country" => $location_post[2]
+        );
+      else if (count($location_post) == 2)
+        $location_array = array(
+          "postcode" => explode(" ", $location_post[0])[0],
+          "city" => explode(" ", $location_post[0])[1],
+          "country" => $location_post[1]
+          );
+      if (isset($location_array))
+        Bdd::alter_table($user_id, "location", serialize($location_array));
     }
   }
 

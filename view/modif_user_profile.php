@@ -19,14 +19,14 @@ $form->textarea("Biographie", "Décrivez-vous ici ... ;)");
 ** on va essayer de retrouver notre ip
 */
 echo("<script>
-function updateIp(response, status)
-{
-  alert('updateIp');
-  var reponse = JSON.Parse(xmlhttp.response);
-  if (reponse[ip])
-  var ip = reponse[ip];
-  return ip;
-}
+// function updateIp(response, status)
+// {
+//   alert('updateIp');
+//   var reponse = JSON.Parse(xmlhttp.response);
+//   if (reponse[ip])
+//   var ip = reponse[ip];
+//   return ip;
+// }
 
 const locField = $('#locationField input');
 
@@ -119,7 +119,7 @@ function autocomplete(inp, arr, h) {
       .then(res => res.json())
       .then(res => {
         let component = res.results[0].components;
-        document.getElementById('myInput').value = 'Ma position - ' + component.house_number + ' ' + component.street + ', ' + component.postcode + ' '+ component.city + ' - ' + component.country;
+        document.getElementById('myInput').value = 'Ma position - ' + component.house_number + ' ' + component.street + ', ' + component.postcode + ' '+ component.city + ', ' + component.country;
       })
   }
 
