@@ -341,22 +341,22 @@ class Form
         Bdd::alter_table($user_id, "password", password_hash(htmlspecialchars($_POST['pwd']), PASSWORD_DEFAULT));
       }
     }
-    if (isset($_POST['location']))
-    {
-      $location_post = explode(", ", explode(" - ", htmlspecialchars($_POST['location']))[1]);
-      if (count($location_post == 3))
-        $location_aray = array(
-        "postcode" => $location_post[0],
-        "city" => $location_post[1],
-        "country" => $location_post[2]
-        );
-      Bdd::alter_table($user_id, "location", serialize($location_aray));
-    }
-    else
-    {//code de geolocalisation via IP
-      $ip = $_SERVER['REMOTE_ADDR'];
-      //localiser ip
-    }
+    // if (isset($_POST['location']))
+    // {
+    //   $location_post = explode(", ", explode(" - ", htmlspecialchars($_POST['location']))[1]);
+    //   if (count($location_post == 3))
+    //     $location_aray = array(
+    //     "postcode" => $location_post[0],
+    //     "city" => $location_post[1],
+    //     "country" => $location_post[2]
+    //     );
+    //   Bdd::alter_table($user_id, "location", serialize($location_aray));
+    // }
+    // else
+    // {//code de geolocalisation via IP
+    //   $ip = $_SERVER['REMOTE_ADDR'];
+    //   //localiser ip
+    // }
   }
 
   private function clean_tag_cloud($tags)
@@ -459,7 +459,7 @@ class Form
           "country" => $location_post[1]
           );
       if (isset($location_array))
-        Bdd::alter_table($user_id, "location", serialize($location_array));
+        Bdd::alter_table($user_id, "location", serialize($location_array), "users_profile");
     }
   }
 

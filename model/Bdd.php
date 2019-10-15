@@ -32,7 +32,6 @@ Class Bdd{
       email VARCHAR(256) NOT NULL,
       confirmed boolean NOT NULL default 0,
       `key` VARCHAR(30) NULL DEFAULT '0',
-      location VARCHAR(256),
       password VARCHAR(256) NOT NULL,
       age INT,
       likes LONGTEXT DEFAULT NULL,
@@ -47,6 +46,7 @@ Class Bdd{
       genre VARCHAR(256) DEFAULT 'non-binaire',
       orientation VARCHAR(256) DEFAULT 'bisexuel.le',
       biographie LONGTEXT DEFAULT null,
+      `location` VARCHAR(256),
       images LONGTEXT,
       tags LONGTEXT)";
     $this->query($query);

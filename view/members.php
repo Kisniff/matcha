@@ -5,10 +5,10 @@ include_once("model/Form.php");
 /*
 ** Defining loop variables
 */
-$pic_per_page = 6;
+// $pic_per_page = 6;
 $bdd = new Bdd;
-$nb_users = Bdd::count_field("id", "users");
-$nb_pages = ceil($nb_users / $pic_per_page);
+// $nb_users = Bdd::count_field("id", "users");
+// $nb_pages = ceil($nb_users / $pic_per_page);
 if (isset($_GET['page']))
   $page = intval(htmlspecialchars($_GET['page']));
 else
@@ -17,10 +17,10 @@ else
 /*
 ** Getting users with appropriate id
 */
-$id_min = ($page == 0) ? 1 : $page * 6 + 1;
-$id_max = ($page + 1) * 6 + 2;
-$users_info = Bdd::get_field_with_conditions("users", "*", "id >= " . $id_min . " && id < " . $id_max);
-$users_profile = Bdd::get_field_with_conditions("users_profile", "*",  "id >= " . $id_min . " && id < " . $id_max);
+// $id_min = ($page == 0) ? 1 : $page * 6 + 1;
+// $id_max = ($page + 1) * 6 + 2;
+// $users_info = Bdd::get_field_with_conditions("users", "*", "id >= " . $id_min . " && id < " . $id_max);
+// $users_profile = Bdd::get_field_with_conditions("users_profile", "*",  "id >= " . $id_min . " && id < " . $id_max);
 
 /*
 ** Extended search
@@ -30,7 +30,7 @@ echo("<div class='col-sm-12 text-center sub-title'><a href='index.php?p=extended
 /*
 ** Displaying users
 */
-Members::display_user($users_profile, $users_info, $id_min);
+Members::display_user($page);
 
 /*
 ** Pagination

@@ -63,11 +63,11 @@ Class Members{
       echo("</tr>");
     }
 
-    private static function display_profils($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info) {
-      $i = -1;
-      // print_r($users_info);
-        while (++$i < $nb_photos_to_display)
-        {
+    private static function display_profils($filtres = NULL) {
+      //$filtres = array
+      print_r(unserialize(base64_decode($users_info[1]['likes'])));
+        // while (++$i < $nb_photos_to_display)
+        // {
           echo("<div class='item_profil'>");
           if ($type == null)
             echo("<a style='text-decoration:none' href='index.php?p=member_profile&id=" . ($id_start + $i + $j) . "'>");
@@ -75,7 +75,7 @@ Class Members{
             echo("<a style='text-decoration:none' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
           echo("
               <img class='photo_profil' src='" . $images[$i + $j] . "'/>
-              <figcaption class='pictcaption'>".$users_info[$i]['login']."</figcaption>
+              <figcaption class='pictcaption'>".$users_info[$i - 1]['login']."</figcaption>
             </a>");
           echo("</div>");
           
@@ -92,40 +92,47 @@ Class Members{
           //   </a>
           // </th>
           // ");
-        }
+        // }
     }
 
-    public static function display_user($users_profile, $users_info, $id_start, $type=null)
+    public static function display_user($page)
     {
       $layout = new Layout;
+      // les infos de l'utilisateur connecté
+      //order by (user_profile) LIMIT 6 OFFSET ((page + 1) * 6)
+
+      print_r($_SESSION);
+      if (isset($_SESSION)) {
+        if ($_SESSION['connexion_status'] == 'offline') {
+          // pas de filtres
+        }
+        else {
+          // filtres
+        }
+      }
+      
       $nb_photos_to_display = (count($users_profile));
-      $countdown =  count($users_profile) - 1;
-      if ($countdown <= 0)
-        $countdown = 1;
-      else $countdown = $nb_photos_to_display;
+      print($nb_photos_to_display);
+      // $countdown =  count($users_profile) - 1;
+      // if ($countdown <= 0)
+      //   $countdown = 1;
+      // else $countdown = $nb_photos_to_display;
       $images = self::fill_image_array($users_profile, $users_info);
-      $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown; // pourquoi ?
-      $j = 0;
-      $i = -1;
+      // $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown; // pourquoi ?
+      // $j = 0;
+      // $i = -1;
       echo("
           <div class='container_profils'>");
-      while ($countdown > 0)
+      while ($$nb_photos_to_display > 0)
       {
         // self::display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
         self::display_profils($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
 
-        // self::display_logins($nb_photos_to_display, $users_info, $j);
-
-
-        // echo("
-        // </tr>
-        // </table>
-        // </div>
-        // ");
-        $layout->white_space(2);
-        $j += $nb_photos_to_display;
-        $countdown -= $nb_photos_to_display;
-        $nb_photos_to_display = $countdown;
+        // $layout->white_space(2);
+        // $j += $nb_photos_to_display;
+        // $countdown -= $nb_photos_to_display;
+        // $nb_photos_to_display = $countdown;
+        $nb_photos_to_display--;
       }
       echo("</div>");
     }
