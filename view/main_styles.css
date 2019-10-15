@@ -75,14 +75,18 @@ a{
   padding: 0;
 }
 .pic a{
-  display: flex;
-  position: relative;
+  /* display: flex; */
+  /* position: relative; */
   min-width: 370px;
 }
+
+.photo_profil {
+  max-height: 250px;
+    max-width: 250px;
+}
+
 .pictcaption {
-  position: absolute;
-  top: 102%;
-  left: 43%;
+  text-align: center;
 }
 
 .login_likes{
@@ -359,4 +363,21 @@ input, option, select, label
 
 #myInputautocomplete-list {
   color: #b294bb;
+}
+
+.container_profils {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 30px 0px 30px 0px;
+}
+
+.item_profil:hover {
+  border: #f0c674 solid 1px;
+}
+
+.item_profil {
+  background-color: #1d1f21;
+  padding: 10px;
 }

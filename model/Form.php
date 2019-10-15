@@ -400,6 +400,7 @@ class Form
 
   public static function modif_profile_vars($user_id)
   {
+    // print_r($_POST);
     if (isset($_POST['Genre']))
     {
       $genre = htmlspecialchars($_POST['Genre']);
@@ -441,7 +442,7 @@ class Form
       if (strlen($tags) > 0)
         Bdd::alter_table($user_id, "tags", $new_tags, "users_profile");
     }
-    if (isset($_POST['location']))
+    if (isset($_POST['location']) && $_POST['location'])
     {
       $location_post = explode(", ", explode(" - ", htmlspecialchars($_POST['location']))[1]);
       if (count($location_post) == 3)

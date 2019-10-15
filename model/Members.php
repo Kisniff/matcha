@@ -63,6 +63,38 @@ Class Members{
       echo("</tr>");
     }
 
+    private static function display_profils($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info) {
+      $i = -1;
+      // print_r($users_info);
+        while (++$i < $nb_photos_to_display)
+        {
+          echo("<div class='item_profil'>");
+          if ($type == null)
+            echo("<a style='text-decoration:none' href='index.php?p=member_profile&id=" . ($id_start + $i + $j) . "'>");
+          else
+            echo("<a style='text-decoration:none' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
+          echo("
+              <img class='photo_profil' src='" . $images[$i + $j] . "'/>
+              <figcaption class='pictcaption'>".$users_info[$i]['login']."</figcaption>
+            </a>");
+          echo("</div>");
+          
+          
+          // echo("
+          // <th class='col-sm-3 pic text-center'>");
+          // if ($type == null)
+          //   echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . ($id_start + $i + $j) . "'>");
+          // else
+          //   echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
+          // echo("
+          //     <img class='col-sm-12 rounded photo' src='" . $images[$i + $j] . "'/>
+          //     <figcaption class='pictcaption'>".$users_info[$i]['login']."</figcaption>
+          //   </a>
+          // </th>
+          // ");
+        }
+    }
+
     public static function display_user($users_profile, $users_info, $id_start, $type=null)
     {
       $layout = new Layout;
@@ -75,20 +107,27 @@ Class Members{
       $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown; // pourquoi ?
       $j = 0;
       $i = -1;
+      echo("
+          <div class='container_profils'>");
       while ($countdown > 0)
       {
-        self::display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
+        // self::display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
+        self::display_profils($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
+
         // self::display_logins($nb_photos_to_display, $users_info, $j);
-        echo("
-        </tr>
-        </table>
-        </div>
-        ");
+
+
+        // echo("
+        // </tr>
+        // </table>
+        // </div>
+        // ");
         $layout->white_space(2);
         $j += $nb_photos_to_display;
         $countdown -= $nb_photos_to_display;
         $nb_photos_to_display = $countdown;
       }
+      echo("</div>");
     }
 
     public static function display_pagination($page, $nb_pages, $url = "index.php?p=members&page=")
