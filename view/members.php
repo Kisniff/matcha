@@ -7,8 +7,8 @@ include_once("model/Form.php");
 */
 // $pic_per_page = 6;
 $bdd = new Bdd;
-// $nb_users = Bdd::count_field("id", "users");
-// $nb_pages = ceil($nb_users / $pic_per_page);
+$nb_users = Bdd::count_field("id", "users");
+$nb_pages = ceil($nb_users / 6);
 if (isset($_GET['page']))
   $page = intval(htmlspecialchars($_GET['page']));
 else

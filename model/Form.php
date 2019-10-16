@@ -461,6 +461,12 @@ class Form
       if (isset($location_array))
         Bdd::alter_table($user_id, "location", serialize($location_array), "users_profile");
     }
+    if (isset($_POST['geoloc']) && $_POST['geoloc']) {
+      $geometry = explode('-', $_POST['geoloc']);
+      print_r($geometry);
+      Bdd::alter_table($user_id, "latitude", $geometry[0], "users_profile");
+      Bdd::alter_table($user_id, "longitude", $geometry[1], "users_profile");
+    }
   }
 
   public static function get_extended_search_datas()

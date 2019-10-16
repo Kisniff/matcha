@@ -13,6 +13,7 @@ $form->select("Genre",   array("non-binaire", "homme cisgenre", "femme cisgenre"
 $form->select("Orientation",   array("pansexuel.le", "bisexuel.le", "asexuel.le",
 "homosexuel.le", "hétérosexuel.le"));
 $form->search_field("Localisation");
+$form->hidden_entry("geoloc", "geoloc");
 $form->textarea("Biographie", "Décrivez-vous ici ... ;)");
 
 /*
@@ -119,6 +120,7 @@ function autocomplete(inp, arr, h) {
       .then(res => res.json())
       .then(res => {
         let component = res.results[0].components;
+        document.getElementById('geoloc').value = res.results[0].geometry.lat + '-' + res.results[0].geometry.lng;
         document.getElementById('myInput').value = 'Ma position - ' + component.house_number + ' ' + component.street + ', ' + component.postcode + ' '+ component.city + ', ' + component.country;
       })
   }
@@ -127,6 +129,7 @@ function autocomplete(inp, arr, h) {
     fetch('https://freegeoip.app/json/' + ip)
       .then(res => res.json())
       .then(res => {
+        document.getElementById('geoloc').value = res.latitude + '-' + res.longitude;
         document.getElementById('myInput').value = 'Ma position - ' + res.zip_code + ' ' + res.city + ', ' + res.country_name;
       })
   }

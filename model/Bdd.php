@@ -47,6 +47,8 @@ Class Bdd{
       orientation VARCHAR(256) DEFAULT 'bisexuel.le',
       biographie LONGTEXT DEFAULT null,
       `location` VARCHAR(256),
+      latitude FLOAT,
+      longitude FLOAT,
       images LONGTEXT,
       tags LONGTEXT)";
     $this->query($query);
@@ -139,7 +141,8 @@ Class Bdd{
 
   public static function get_user_field($email, $field, $table = "users", $db_name = "matcha"){
 	  $instruct = (new self)->query("SELECT " . $field . " FROM " . $db_name . "." . $table . " WHERE email = '" . $email . "'");
-	  $data = $instruct->fetch();
+    $data = $instruct->fetch();
+    // print_r($data);
 	  return($data[0]);
   }
 
@@ -147,6 +150,20 @@ Class Bdd{
 	  $instruct = (new self)->query("SELECT " . $field . " FROM " . $db_name . "." . $table . " WHERE id = '" . $id. "'");
 	  $data = $instruct->fetch();
 	  return($data[0]);
+  }
+
+  public static function get_user_profil($id, $field, $table= "users_profile", $db_name = "matcha") {
+    $query = "SELECT " . $field . " FROM " . $db_name . "." . $table . " WHERE id = " . $id;
+    $instruct = (new self)->query("SELECT " . $field . " FROM " . $db_name . "." . $table . " WHERE id = " . $id);
+    $data = $instruct->fetch();
+	  return($data);
+  }
+
+  public static function order_profils($query) {
+    // print($query);
+    $instruct = (new self)->query($query);
+    $data = $instruct->fetchAll();
+	  return($data);
   }
 
   private function drop_db($db_name = "matcha"){
@@ -186,6 +203,7 @@ Class Bdd{
     {
       $value = str_replace("'", "", $value);
       $instruct = "UPDATE " . $db . "." . $table . " SET " . $column . " = '" . $value . "' WHERE id = " . $id;
+      // print($instruct);
       $instruct = (new self)->query($instruct);
     }
     else
@@ -229,8 +247,13 @@ Class Bdd{
   {
     $bdd = new Bdd;
     $query = "SELECT " . $field . " FROM " . $db . "." . $table . " WHERE (" . $condition . ") ORDER BY id " . $order;
-    // print($query);
     return ($bdd->query($query)->fetchAll());
+  }
+
+  public static function get_login($id) {
+    $bdd = new Bdd;
+    $query = "SELECT `login` FROM matcha.users WHERE id = ".$id;
+    return ($bdd->query($query)->fetch());
   }
 
   public static function count_field($field, $table, $condition = null, $db = 'matcha')

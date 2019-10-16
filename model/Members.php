@@ -63,78 +63,80 @@ Class Members{
       echo("</tr>");
     }
 
-    private static function display_profils($filtres = NULL) {
-      //$filtres = array
-      print_r(unserialize(base64_decode($users_info[1]['likes'])));
-        // while (++$i < $nb_photos_to_display)
-        // {
-          echo("<div class='item_profil'>");
-          if ($type == null)
-            echo("<a style='text-decoration:none' href='index.php?p=member_profile&id=" . ($id_start + $i + $j) . "'>");
-          else
-            echo("<a style='text-decoration:none' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
+    private static function display_profils($profils, $filtres = NULL) {
+
+      //$filtres = array (filtres demandé dans la recherche avancée)
+      // $order = booleen (ordonné si connecté)
+
+      $count = count($profils);
+      $i = 0;
+      // print($count);
+      echo("
+          <div class='container_profils'>");
+      while ($i < $count) {
+        $id = $profils[$i]['id'];
+        $profil_pict = unserialize($profils[$i]['images'])[0] ? unserialize($profils[$i]['images'])[0] : "view/matcha_logo.png";
+        $login = Bdd::get_login($id)[0];
+        echo("<div class='item_profil'>");
+          echo("<a style='text-decoration:none' href='index.php?p=member_profile&id=" . $id . "'>");
           echo("
-              <img class='photo_profil' src='" . $images[$i + $j] . "'/>
-              <figcaption class='pictcaption'>".$users_info[$i - 1]['login']."</figcaption>
+              <img class='photo_profil' src='" . $profil_pict . "'/>
+              <figcaption class='pictcaption'>".$login."</figcaption>
             </a>");
           echo("</div>");
-          
-          
-          // echo("
-          // <th class='col-sm-3 pic text-center'>");
-          // if ($type == null)
-          //   echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . ($id_start + $i + $j) . "'>");
-          // else
-          //   echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
-          // echo("
-          //     <img class='col-sm-12 rounded photo' src='" . $images[$i + $j] . "'/>
-          //     <figcaption class='pictcaption'>".$users_info[$i]['login']."</figcaption>
-          //   </a>
-          // </th>
-          // ");
-        // }
+        $i++;
+      }
+      echo("</div>");
     }
 
     public static function display_user($page)
     {
       $layout = new Layout;
-      // les infos de l'utilisateur connecté
-      //order by (user_profile) LIMIT 6 OFFSET ((page + 1) * 6)
+      $offset = $page * 6;
 
-      print_r($_SESSION);
+      // print_r($_SESSION);
+      
       if (isset($_SESSION)) {
         if ($_SESSION['connexion_status'] == 'offline') {
+          // pas d'ordres
           // pas de filtres
         }
         else {
-          // filtres
+          $user_infos = Bdd::get_user_profil($_SESSION['id'], '*');
+          // print_r($user_infos);
+          $orientation_user = $user_infos['orientation'];
+          $lat = $user_infos['latitude'];
+          $long = $user_infos['longitude'];
+          $query = 'SELECT * FROM matcha.`users_profile` WHERE `id` != '.$_SESSION['id'].' ORDER BY case `orientation` WHEN "'.$orientation_user.'" then 1 else 2 end, `orientation`, ABS('.$lat.' - latitude) ASC, ABS('.$long.' - longitude) ASC LIMIT 6 OFFSET '.$offset;
+          $ordered_profils = Bdd::order_profils($query);
+          // print_r($ordered_profils);
+          self::display_profils($ordered_profils);
         }
       }
       
-      $nb_photos_to_display = (count($users_profile));
-      print($nb_photos_to_display);
+      // $nb_photos_to_display = (count($users_profile));
+      // print($nb_photos_to_display);
       // $countdown =  count($users_profile) - 1;
       // if ($countdown <= 0)
       //   $countdown = 1;
       // else $countdown = $nb_photos_to_display;
-      $images = self::fill_image_array($users_profile, $users_info);
+      // $images = self::fill_image_array($users_profile, $users_info);
       // $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown; // pourquoi ?
       // $j = 0;
       // $i = -1;
-      echo("
-          <div class='container_profils'>");
-      while ($$nb_photos_to_display > 0)
-      {
+      
+      // while ($nb_photos_to_display > 0)
+      // {
         // self::display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
-        self::display_profils($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
+        // self::display_profils($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
 
         // $layout->white_space(2);
         // $j += $nb_photos_to_display;
         // $countdown -= $nb_photos_to_display;
         // $nb_photos_to_display = $countdown;
-        $nb_photos_to_display--;
-      }
-      echo("</div>");
+        // $nb_photos_to_display--;
+      // }
+      
     }
 
     public static function display_pagination($page, $nb_pages, $url = "index.php?p=members&page=")
