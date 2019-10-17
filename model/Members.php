@@ -18,52 +18,52 @@ Class Members{
       return ($images);
     }
 
-    private static function display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info)
-    {
-        echo("
-        <div class='col-sm-12 row'>
-        <table class='col-sm-12 container'>
-        <tr class='col-sm-12 row'>
-          <th class='col-sm-1'></th>
-        ");
-        $i = -1;
-        while (++$i < $nb_photos_to_display)
-        {
-          echo("
-          <th class='col-sm-3 pic text-center'>");
-          if ($type == null)
-            echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . ($id_start + $i + $j) . "'>");
-          else
-            echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
-          echo("
-              <img class='col-sm-12 rounded photo' src='" . $images[$i + $j] . "'/>
-              <figcaption class='pictcaption'>".$users_info[$i]['login']."</figcaption>
-            </a>
-          </th>
-          ");
-        }
-        echo("</tr>");
-    }
+    // private static function display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info)
+    // {
+    //     echo("
+    //     <div class='col-sm-12 row'>
+    //     <table class='col-sm-12 container'>
+    //     <tr class='col-sm-12 row'>
+    //       <th class='col-sm-1'></th>
+    //     ");
+    //     $i = -1;
+    //     while (++$i < $nb_photos_to_display)
+    //     {
+    //       echo("
+    //       <th class='col-sm-3 pic text-center'>");
+    //       if ($type == null)
+    //         echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . ($id_start + $i + $j) . "'>");
+    //       else
+    //         echo("<a class='col-sm-12' href='index.php?p=member_profile&id=" . $users_profile[$id_start + $i + $j]['id'] . "'>");
+    //       echo("
+    //           <img class='col-sm-12 rounded photo' src='" . $images[$i + $j] . "'/>
+    //           <figcaption class='pictcaption'>".$users_info[$i]['login']."</figcaption>
+    //         </a>
+    //       </th>
+    //       ");
+    //     }
+    //     echo("</tr>");
+    // }
 
-    private static function display_logins($nb_photos_to_display, $users_info, $j)
-    {
-      $layout = new Layout;
-      $i = -1;
-      echo("<tr class='col-sm-12 row'>
-          <th class='col-sm-1'></th>");
-      while (++$i < $nb_photos_to_display)
-      {
-        echo("
-        <th class='col-sm-3 login_likes'>
-        <div class='col-sm-12 text-center'>" . $users_info[$i + $j]['login'] . "</div>
-        </div>
-        </th>
-        ");
-      }
-      echo("</tr>");
-    }
+    // private static function display_logins($nb_photos_to_display, $users_info, $j)
+    // {
+    //   $layout = new Layout;
+    //   $i = -1;
+    //   echo("<tr class='col-sm-12 row'>
+    //       <th class='col-sm-1'></th>");
+    //   while (++$i < $nb_photos_to_display)
+    //   {
+    //     echo("
+    //     <th class='col-sm-3 login_likes'>
+    //     <div class='col-sm-12 text-center'>" . $users_info[$i + $j]['login'] . "</div>
+    //     </div>
+    //     </th>
+    //     ");
+    //   }
+    //   echo("</tr>");
+    // }
 
-    private static function display_profils($profils, $filtres = NULL) {
+    private static function display_profils_cards($profils, $filtres = NULL) {
 
       //$filtres = array (filtres demandé dans la recherche avancée)
       // $order = booleen (ordonné si connecté)
@@ -88,6 +88,10 @@ Class Members{
       echo("</div>");
     }
 
+    public static function filter_profils($filtres) {
+      
+    }
+
     public static function display_user($page)
     {
       $layout = new Layout;
@@ -97,7 +101,7 @@ Class Members{
         if ($_SESSION['connexion_status'] == 'offline') {
           $query = 'SELECT * FROM matcha.`users_profile`LIMIT 6 OFFSET '.$offset;
           $profils = Bdd::order_profils($query);
-          self::display_profils($profils);
+          self::display_profils_cards($profils);
         }
         else {
           $user_infos = Bdd::get_user_profil($_SESSION['id'], '*');
@@ -106,7 +110,7 @@ Class Members{
           $long = $user_infos['longitude'];
           $query = 'SELECT * FROM matcha.`users_profile` WHERE `id` != '.$_SESSION['id'].' ORDER BY case `orientation` WHEN "'.$orientation_user.'" then 1 else 2 end, `orientation`, ABS('.$lat.' - latitude) ASC, ABS('.$long.' - longitude) ASC LIMIT 6 OFFSET '.$offset;
           $ordered_profils = Bdd::order_profils($query);
-          self::display_profils($ordered_profils);
+          self::display_profils_cards($ordered_profils);
         }
       }
       

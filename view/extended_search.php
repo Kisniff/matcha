@@ -26,6 +26,42 @@ else
   /*
   ** Treating formular datas
   */
+  print_r($_POST);
+  // Array ( [age_min] => bkiy [age_max] => 1 [likes_min] => [likes_max] => [localisation] => [tags] => ) 
+  $age_filter = '';
+  $likes_filter = '';
+  $location_filter = '';
+  $tags_filter = '';
+
+  if (isset($_POST['age_min']) && $_POST['age_min'] && isset($_POST['age_max']) && $_POST['age_max']) {
+    $age_filter = ' AND `age` <= ' .$_POST['age_max']. ' AND `age` >= '.$_POST['age_min'];
+  }
+  if (isset($_POST['likes_min']) && $_POST['likes_min'] && isset($_POST['likes_max']) && $_POST['likes_max']) {
+    $likes_filter = ' AND `likes_nb` <= ' .$_POST['likes_max']. ' AND `likes_nb` >= '.$_POST['likes_min'];
+  }
+  if (isset($_POST['location']) && $_POST['location']) {
+    $location_filter = ' AND je sais pas encore mais ca va etre chiant';
+  }
+  if (isset($_POST['tags']) && $_POST['tags']) {
+    $tags_filter = ' AND je sais pas encore mais ca va etre chiant';
+  }
+
+  $query = 'SELECT `id` FROM matcha.`users` WHERE `id` != '.$_SESSION['id'].$age_filter.$likes_filter;
+  $query_profils = 'SELECT * FROM matcha.users_profile WHERE `id` != '.$_SESSION['id'].$location_filter.$tags_filter;
+
+  $filtered_ageandlikes_profils = Bdd::order_profils($query);
+  $filtered_locationandtags_profils = Bdd::order_profils($query_profils);
+  $filtered_profils = [];
+  foreach ($filtered_locationandtags_profils as $key => $profil) {
+    if (array_search($profil['id'], $filtered_ageandlikes_profils))
+      array_push($filtered_profils, $profil);
+  }
+
+  Members::display_profils_cards($filtered_profils);
+
+
+
+
   Form::get_extended_search_datas();
   if (!isset($_GET['page']) || !isset($_SESSION['profiles']))
     $profiles = Bdd::find_extended_search_profiles();

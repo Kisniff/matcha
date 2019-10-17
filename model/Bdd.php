@@ -358,8 +358,8 @@ Class Bdd{
       self::alter_table($id_notif[0], "is_new", "`is_new` + 1", "notifications");
     else {
       $query = "INSERT INTO " . $database . ".notifications VALUES(id, :id_member_a, :id_member_b, :is_new, :notif)";
-      print($notif);
-      print_r($id_notif);
+      // print($notif);
+      // print_r($id_notif);
       $instruct = $db->prepare($query);
       $instruct->bindParam(':id_member_a', $id_member_a, PDO::PARAM_INT);
       $instruct->bindParam(':id_member_b', $id_member_b, PDO::PARAM_INT);

@@ -295,6 +295,18 @@ class Form
 
   }
 
+  public function date_field($name) {
+
+    echo("<div class='row'>
+      <div class='col-sm-1'></div>
+      <label class='col-sm-4' for='birth'>Date de naissance</label>");
+    echo('<div class="col-sm-7" style="padding: 0;">
+    <input type="date" name="birth">
+    </div></div>');
+  $this->layout->white_space(1);
+
+  }
+
   public function search_field($name)
   {
     echo("<div class='row'>
@@ -475,6 +487,13 @@ class Form
       $geometry = explode(':', $_POST['geoloc']);
       Bdd::alter_table($user_id, "latitude", $geometry[0], "users_profile");
       Bdd::alter_table($user_id, "longitude", $geometry[1], "users_profile");
+    }
+    if (isset($_POST['birth']) && $_POST['birth']) {
+      $age = date('Y') - $_POST['birth'];
+      if (date('md') < date('md', strtotime($_POST['birth']))) { 
+          $age =  $age - 1; 
+      }
+      Bdd::alter_table($user_id, "age", $age, "users");
     }
   }
 

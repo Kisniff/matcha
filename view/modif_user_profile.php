@@ -12,6 +12,7 @@ $form->select("Genre",   array("non-binaire", "homme cisgenre", "femme cisgenre"
 "femme trans", "genderfluid"));
 $form->select("Orientation",   array("pansexuel.le", "bisexuel.le", "asexuel.le",
 "homosexuel.le", "hétérosexuel.le"));
+$form->date_field('birth');
 $form->search_field("Localisation");
 $form->hidden_entry("geoloc", "geoloc");
 $form->textarea("Biographie", "Décrivez-vous ici ... ;)");

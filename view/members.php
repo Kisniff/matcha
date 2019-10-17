@@ -39,7 +39,7 @@ Members::display_pagination($page, $nb_pages);
 
 echo("</div>");
 ?>
-<script>
+<!-- <script>
 var screenWidth = window.innerWidth;
 var imgs = document.getElementsByClassName('photo');
 for(var i = 0; i < imgs.length; i++)
@@ -47,4 +47,4 @@ for(var i = 0; i < imgs.length; i++)
   imgs[i].style.height = screenWidth / 6 +'px';
   imgs[i].style.width = 'auto';
 }
-</script>
+</script> -->
