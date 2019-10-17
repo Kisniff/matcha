@@ -444,26 +444,35 @@ class Form
     }
     if (isset($_POST['location']) && $_POST['location'])
     {
-      $location_post = explode(", ", explode(" - ", htmlspecialchars($_POST['location']))[1]);
-      if (count($location_post) == 3)
+      if (strpos($_POST['location'], ' - ')) {
+        $location_post = explode(", ", explode(" - ", htmlspecialchars($_POST['location']))[1]);
+        if (count($location_post) == 3)
+          $location_array = array(
+          "adress" => $location_post[0],
+          "postcode" => explode(" ", $location_post[1])[0],
+          "city" => explode(" ", $location_post[1])[1],
+          "country" => $location_post[2]
+          );
+        else if (count($location_post) == 2)
+          $location_array = array(
+            "postcode" => explode(" ", $location_post[0])[0],
+            "city" => explode(" ", $location_post[0])[1],
+            "country" => $location_post[1]
+            );
+      }
+      else {
+        $location_post = explode(", ", htmlspecialchars($_POST['location']));
         $location_array = array(
-        "adress" => $location_post[0],
-        "postcode" => explode(" ", $location_post[1])[0],
-        "city" => explode(" ", $location_post[1])[1],
-        "country" => $location_post[2]
-        );
-      else if (count($location_post) == 2)
-        $location_array = array(
-          "postcode" => explode(" ", $location_post[0])[0],
-          "city" => explode(" ", $location_post[0])[1],
+          "city" => $location_post[0],
           "country" => $location_post[1]
           );
+      }
+      
       if (isset($location_array))
         Bdd::alter_table($user_id, "location", serialize($location_array), "users_profile");
     }
     if (isset($_POST['geoloc']) && $_POST['geoloc']) {
-      $geometry = explode('-', $_POST['geoloc']);
-      print_r($geometry);
+      $geometry = explode(':', $_POST['geoloc']);
       Bdd::alter_table($user_id, "latitude", $geometry[0], "users_profile");
       Bdd::alter_table($user_id, "longitude", $geometry[1], "users_profile");
     }

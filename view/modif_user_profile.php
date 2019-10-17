@@ -37,23 +37,25 @@ locField.on('input', function(ev) {
     fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + ev.target.value + '.json?access_token=pk.eyJ1IjoibWMxMDBzIiwiYSI6ImNqb2E2ZTF3ODBxa3czd2xldHp1Z2FxbGYifQ.U4oatm5RsTXXHQLz5w66dQ')
       .then(res => res.json())
       .then(res => {
+        // console.log(res)
         if (res.features) {
-          var countries = res.features.map(f => f.place_name)
+          var countries = res.features.map(f => {return {name : f.place_name, lat: f.geometry.coordinates[1], long: f.geometry.coordinates[0]}})
 
           autocomplete(document.getElementById('myInput'), countries, this);
         }
       })
   }
   else
-    autocomplete(document.getElementById('myInput'), ['Ma position'], this);
+    autocomplete(document.getElementById('myInput'), [{name: 'Ma position'}], this);
 })
 
 locField.on('click', function(ev) {
-  autocomplete(document.getElementById('myInput'), ['Ma position'], this);
+  autocomplete(document.getElementById('myInput'), [{name: 'Ma position'}], this);
 })
 
 function autocomplete(inp, arr, h) {
   var currentFocus;
+  console.log(arr);
   
       var a, b, i, val = h.value;
       
@@ -65,13 +67,15 @@ function autocomplete(inp, arr, h) {
       a.setAttribute('class', 'autocomplete-items');
       h.parentNode.appendChild(a);
       for (i = 0; i < arr.length; i++) {
-        if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+        if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
           b = document.createElement('DIV');
-          b.innerHTML = '<strong>' + arr[i].substr(0, val.length) + '</strong>';
-          b.innerHTML += arr[i].substr(val.length);
-          b.innerHTML += '<input type=\"hidden\" value=\"' + arr[i] + '\">';
+          b.innerHTML = '<strong>' + arr[i].name.substr(0, val.length) + '</strong>';
+          b.innerHTML += arr[i].name.substr(val.length);
+          b.innerHTML += '<input type=\"hidden\" value=\"' + arr[i].name + '\">';
           b.addEventListener('click', function(e) {
               inp.value = this.getElementsByTagName('input')[0].value;
+              find = arr.find(city => city.name == inp.value)
+              document.getElementById('geoloc').value = find.lat + ':' + find.long;
               closeAllLists();
           });
           a.appendChild(b);
@@ -120,7 +124,7 @@ function autocomplete(inp, arr, h) {
       .then(res => res.json())
       .then(res => {
         let component = res.results[0].components;
-        document.getElementById('geoloc').value = res.results[0].geometry.lat + '-' + res.results[0].geometry.lng;
+        document.getElementById('geoloc').value = res.results[0].geometry.lat + ':' + res.results[0].geometry.lng;
         document.getElementById('myInput').value = 'Ma position - ' + component.house_number + ' ' + component.street + ', ' + component.postcode + ' '+ component.city + ', ' + component.country;
       })
   }
@@ -129,7 +133,7 @@ function autocomplete(inp, arr, h) {
     fetch('https://freegeoip.app/json/' + ip)
       .then(res => res.json())
       .then(res => {
-        document.getElementById('geoloc').value = res.latitude + '-' + res.longitude;
+        document.getElementById('geoloc').value = res.latitude + ':' + res.longitude;
         document.getElementById('myInput').value = 'Ma position - ' + res.zip_code + ' ' + res.city + ', ' + res.country_name;
       })
   }

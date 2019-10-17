@@ -110,29 +110,6 @@ Class Members{
         }
       }
       
-      // $nb_photos_to_display = (count($users_profile));
-      // print($nb_photos_to_display);
-      // $countdown =  count($users_profile) - 1;
-      // if ($countdown <= 0)
-      //   $countdown = 1;
-      // else $countdown = $nb_photos_to_display;
-      // $images = self::fill_image_array($users_profile, $users_info);
-      // $nb_photos_to_display = ($countdown) > 1 ? 3 : $countdown; // pourquoi ?
-      // $j = 0;
-      // $i = -1;
-      
-      // while ($nb_photos_to_display > 0)
-      // {
-        // self::display_photos($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
-        // self::display_profils($nb_photos_to_display, $images, $j, $id_start, $users_profile, $type, $users_info);
-
-        // $layout->white_space(2);
-        // $j += $nb_photos_to_display;
-        // $countdown -= $nb_photos_to_display;
-        // $nb_photos_to_display = $countdown;
-        // $nb_photos_to_display--;
-      // }
-      
     }
 
     public static function display_pagination($page, $nb_pages, $url = "index.php?p=members&page=")
