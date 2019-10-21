@@ -63,7 +63,7 @@ Class Members{
     //   echo("</tr>");
     // }
 
-    private static function display_profils_cards($profils, $filtres = NULL) {
+    public static function display_profils_cards($profils, $filtres = NULL) {
 
       //$filtres = array (filtres demandé dans la recherche avancée)
       // $order = booleen (ordonné si connecté)
