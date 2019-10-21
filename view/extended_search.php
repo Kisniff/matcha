@@ -16,10 +16,147 @@ if (!isset($_POST['likes_min']) && !isset($_GET['page']))
   $layout->white_space(1);
   Form::interval("Nombre de likes", "likes");
   $layout->white_space(1);
-  $form->entry("Localisation", "text", "localisation");
+  $form->search_field("Localisation");
+  $form->hidden_entry("geoloc", "geoloc");
   $form->entry("Tags", "text", "tags", null, "Séparez les tags par une virgule");
   $form->button("Rechercher !");
   echo("</div>");
+
+  echo("<script>
+// function updateIp(response, status)
+// {
+//   alert('updateIp');
+//   var reponse = JSON.Parse(xmlhttp.response);
+//   if (reponse[ip])
+//   var ip = reponse[ip];
+//   return ip;
+// }
+
+const locField = $('#locationField input');
+
+locField.on('input', function(ev) {
+  console.log('trigger')
+  if (ev.target.value) {
+    fetch('https://api.mapbox.com/geocoding/v5/mapbox.places/' + ev.target.value + '.json?access_token=pk.eyJ1IjoibWMxMDBzIiwiYSI6ImNqb2E2ZTF3ODBxa3czd2xldHp1Z2FxbGYifQ.U4oatm5RsTXXHQLz5w66dQ')
+      .then(res => res.json())
+      .then(res => {
+        // console.log(res)
+        if (res.features) {
+          var countries = res.features.map(f => {return {name : f.place_name, lat: f.geometry.coordinates[1], long: f.geometry.coordinates[0]}})
+
+          autocomplete(document.getElementById('myInput'), countries, this);
+        }
+      })
+  }
+  else
+    autocomplete(document.getElementById('myInput'), [{name: 'Ma position'}], this);
+})
+
+locField.on('click', function(ev) {
+  autocomplete(document.getElementById('myInput'), [{name: 'Ma position'}], this);
+})
+
+function autocomplete(inp, arr, h) {
+  var currentFocus;
+  console.log(arr);
+  
+      var a, b, i, val = h.value;
+      
+      closeAllLists();
+      // if (!val) { return false;}
+      currentFocus = -1;
+      a = document.createElement('DIV');
+      a.setAttribute('id', h.id + 'autocomplete-list');
+      a.setAttribute('class', 'autocomplete-items');
+      h.parentNode.appendChild(a);
+      for (i = 0; i < arr.length; i++) {
+        if (arr[i].name.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          b = document.createElement('DIV');
+          b.innerHTML = '<strong>' + arr[i].name.substr(0, val.length) + '</strong>';
+          b.innerHTML += arr[i].name.substr(val.length);
+          b.innerHTML += '<input type=\"hidden\" value=\"' + arr[i].name + '\">';
+          b.addEventListener('click', function(e) {
+              inp.value = this.getElementsByTagName('input')[0].value;
+              find = arr.find(city => city.name == inp.value)
+              document.getElementById('geoloc').value = find.lat + ':' + find.long;
+              closeAllLists();
+          });
+          a.appendChild(b);
+        }
+      }
+
+  inp.addEventListener('keydown', function(e) {
+      var x = document.getElementById(this.id + 'autocomplete-list');
+      if (x) x = x.getElementsByTagName('div');
+      if (e.keyCode == 40) {
+        currentFocus++;
+        addActive(x);
+      } else if (e.keyCode == 38) { //up
+        currentFocus--;
+        addActive(x);
+      } else if (e.keyCode == 13) {
+        e.preventDefault();
+        if (currentFocus > -1) {
+          if (x) x[currentFocus].click();
+        }
+      }
+  });
+  function addActive(x) {
+    if (!x) return false;
+    removeActive(x);
+    if (currentFocus >= x.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = (x.length - 1);
+    x[currentFocus].classList.add('autocomplete-active');
+  }
+  function removeActive(x) {
+    for (var i = 0; i < x.length; i++) {
+      x[i].classList.remove('autocomplete-active');
+    }
+  }
+  function closeAllLists(elmnt) {
+    var x = document.getElementsByClassName('autocomplete-items');
+    for (var i = 0; i < x.length; i++) {
+      if (elmnt != x[i] && elmnt != inp) {
+        x[i].parentNode.removeChild(x[i]);
+      }
+    }
+  }
+  function getPos(pos)
+  {
+    fetch('https://api.opencagedata.com/geocode/v1/json?q=' + pos.coords.latitude + '+' + pos.coords.longitude + '&key=a1674daf25f54056a7c8047ca1742c22&no_annotations=1&language=fr')
+      .then(res => res.json())
+      .then(res => {
+        let component = res.results[0].components;
+        document.getElementById('geoloc').value = res.results[0].geometry.lat + ':' + res.results[0].geometry.lng;
+        document.getElementById('myInput').value = 'Ma position - ' + component.house_number + ' ' + component.street + ', ' + component.postcode + ' '+ component.city + ', ' + component.country;
+      })
+  }
+
+  function getGeoip(ip) {
+    fetch('https://freegeoip.app/json/' + ip)
+      .then(res => res.json())
+      .then(res => {
+        document.getElementById('geoloc').value = res.latitude + ':' + res.longitude;
+        document.getElementById('myInput').value = 'Ma position - ' + res.zip_code + ' ' + res.city + ', ' + res.country_name;
+      })
+  }
+
+  function getIp(pos) {
+    fetch('https://api.ipify.org/?format=json')
+      .then(res => res.json())
+      .then(res => {
+        getGeoip(res.ip);
+      })
+  }
+
+  document.addEventListener('click', function (e) {
+    if (e.target.textContent == 'Ma position') {
+      var localisation = navigator.geolocation.getCurrentPosition(getPos, getIp);
+    }
+    closeAllLists(e.target);
+  });
+}
+</script>");
 }
 else
 {
@@ -40,14 +177,18 @@ else
     $likes_filter = ' AND `likes_nb` <= ' .$_POST['likes_max']. ' AND `likes_nb` >= '.$_POST['likes_min'];
   }
   if (isset($_POST['location']) && $_POST['location']) {
-    $location_filter = ' AND je sais pas encore mais ca va etre chiant';
+    $geometry = explode(':', $_POST['geoloc']);
+    $location_filter = ' ORDER BY ABS('.$geometry[0].' - latitude) ASC, ABS('.$geometry[1].' - longitude) ASC';
   }
   if (isset($_POST['tags']) && $_POST['tags']) {
-    $tags_filter = ' AND je sais pas encore mais ca va etre chiant';
+    $tags_filter = ' AND INSTR( tags , "'.$_POST['tags'].'" )';
   }
 
   $query = 'SELECT `id` FROM matcha.`users` WHERE `id` != '.$_SESSION['id'].$age_filter.$likes_filter;
-  $query_profils = 'SELECT * FROM matcha.users_profile WHERE `id` != '.$_SESSION['id'].$location_filter.$tags_filter;
+  $query_profils = 'SELECT * FROM matcha.users_profile WHERE `id` != '.$_SESSION['id'].$tags_filter.$location_filter;
+
+  print($query);
+  print($query_profils);
 
   $filtered_ageandlikes_profils = Bdd::order_profils($query);
   $filtered_locationandtags_profils = Bdd::order_profils($query_profils);
