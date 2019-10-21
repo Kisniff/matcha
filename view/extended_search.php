@@ -198,10 +198,20 @@ else
     }
   }
 
-  Members::display_profils_cards($filtered_profils);
+  if (!(isset($filtered_profils) && count($filtered_profils) > 0))
+    $layout->main_error("Aucun utilisateur ne correspond a votre recherche");
+  else {
+    $nb_users = count($filtered_profils);
+    $nb_pages = ceil($nb_users / 6);
+    if (isset($_GET['page']))
+      $page = intval(htmlspecialchars($_GET['page']));
+    else
+      $page = 0;
+
+    Members::display_profils_cards($filtered_profils);
+    Members::display_pagination($page, $nb_pages);
+  }
 }
-
-
 
 //   Form::get_extended_search_datas();
 //   if (!isset($_GET['page']) || !isset($_SESSION['profiles']))
