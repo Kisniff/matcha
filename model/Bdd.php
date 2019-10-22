@@ -46,7 +46,6 @@ Class Bdd{
       genre VARCHAR(256) DEFAULT 'non-binaire',
       orientation VARCHAR(256) DEFAULT 'bisexuel.le',
       biographie LONGTEXT DEFAULT null,
-      `location` VARCHAR(256),
       latitude FLOAT,
       longitude FLOAT,
       images LONGTEXT,
