@@ -208,7 +208,7 @@ else
     else
       $page = 0;
     Members::display_profils_cards($filtered_profils);
-    Members::display_pagination($page, $nb_pages, 'index.php?p=extended_search&page=');
+    // Members::display_pagination($page, $nb_pages, 'index.php?p=extended_search&page=');
   }
 }
 
