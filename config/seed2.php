@@ -40,64 +40,64 @@ catch (Exception $e){
 // $bdd->query($query);
 $i = 0;
 $query = 'INSERT INTO matcha.`users` (`id`, `login`, `first_name`,`last_name`, `email`, `confirmed`, `key`, `password`, `age`, `likes`, `matches`, `likes_nb`, `id_liked`, `reported_by_id`, `blocked_id`) 
-            VALUES (id, "login'.$i++.'","Chantale","Holland", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 15, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Macey","Burnett", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 26, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Xenos","Castro", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 42, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","James","Lang", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 38, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Stewart","French", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 87, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Christopher","Cross", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 18, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Noble","Dillon", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 20, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Dai","Francis", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 21, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Merritt","Walls", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 22, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Kyra","Nguyen", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 36, NULL, NULL, 0, NULL, NULL, NULL);';
+            VALUES (id, "login'.++$i.'","Chantale","Holland", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 15, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Macey","Burnett", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 26, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Xenos","Castro", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 42, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","James","Lang", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 38, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Stewart","French", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 87, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Christopher","Cross", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 18, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Noble","Dillon", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 20, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Dai","Francis", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 21, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Merritt","Walls", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 22, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Kyra","Nguyen", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 36, NULL, NULL, 0, NULL, NULL, NULL);';
 $bdd->query($query);
 $query = 'INSERT INTO matcha.`users` (`id`, `login`, `first_name`,`last_name`, `email`, `confirmed`, `key`, `password`, `age`, `likes`, `matches`, `likes_nb`, `id_liked`, `reported_by_id`, `blocked_id`) 
-            VALUES (id, "login'.$i++.'","Madonna","Holloway", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 34, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Ahmed","Sweeney", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 45, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Patrick","Ratliff", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 19, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","MacKenzie","Schmidt", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 36, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","David","Castaneda", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 65, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Cyrus","Key", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 45, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Lance","Powell", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 37, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Drake","Price", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 38, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Megan","Hamilton", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 36, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Leilani","Morse", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 40, NULL, NULL, 0, NULL, NULL, NULL);';
+            VALUES (id, "login'.++$i.'","Madonna","Holloway", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 34, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Ahmed","Sweeney", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 45, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Patrick","Ratliff", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 19, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","MacKenzie","Schmidt", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 36, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","David","Castaneda", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 65, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Cyrus","Key", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 45, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Lance","Powell", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 37, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Drake","Price", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 38, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Megan","Hamilton", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 36, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Leilani","Morse", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 40, NULL, NULL, 0, NULL, NULL, NULL);';
 $bdd->query($query);
 $query = 'INSERT INTO matcha.`users` (`id`, `login`, `first_name`,`last_name`, `email`, `confirmed`, `key`, `password`, `age`, `likes`, `matches`, `likes_nb`, `id_liked`, `reported_by_id`, `blocked_id`) 
-            VALUES (id, "login'.$i++.'","Abel","Rivas", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 45, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Hammett","Carpenter", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 42, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Athena","Kirk", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 27, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Ainsley","Hogan", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 29, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Coby","Jacobs", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 30, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Hakeem","Schwartz", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 34, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Hilda","Black", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 78, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Aidan","Acevedo", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 21, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Burton","Prince", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 20, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Isadora","Nguyen", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 27, NULL, NULL, 0, NULL, NULL, NULL);';
+            VALUES (id, "login'.++$i.'","Abel","Rivas", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 45, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Hammett","Carpenter", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 42, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Athena","Kirk", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 27, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Ainsley","Hogan", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 29, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Coby","Jacobs", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 30, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Hakeem","Schwartz", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 34, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Hilda","Black", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 78, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Aidan","Acevedo", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 21, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Burton","Prince", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 20, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Isadora","Nguyen", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 27, NULL, NULL, 0, NULL, NULL, NULL);';
 $bdd->query($query);
 $query = 'INSERT INTO matcha.`users` (`id`, `login`, `first_name`,`last_name`, `email`, `confirmed`, `key`, `password`, `age`, `likes`, `matches`, `likes_nb`, `id_liked`, `reported_by_id`, `blocked_id`) 
-            VALUES (id, "login'.$i++.'","Barbara","Trevino", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 23, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Brian","Lawrence", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 29, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Kalia","Phillips", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 25, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Ria","Mayo", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 39, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Kiona","Graham", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 41, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Orli","Lynn", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 44, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Lawrence","Houston", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 22, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Cheyenne","Dawson", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 33, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Warren","Fulton", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 55, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Inez","Mckay", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 66, NULL, NULL, 0, NULL, NULL, NULL);';
+            VALUES (id, "login'.++$i.'","Barbara","Trevino", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 23, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Brian","Lawrence", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 29, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Kalia","Phillips", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 25, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Ria","Mayo", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 39, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Kiona","Graham", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 41, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Orli","Lynn", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 44, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Lawrence","Houston", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 22, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Cheyenne","Dawson", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 33, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Warren","Fulton", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 55, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Inez","Mckay", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 66, NULL, NULL, 0, NULL, NULL, NULL);';
 $bdd->query($query);
 $query = 'INSERT INTO matcha.`users` (`id`, `login`, `first_name`,`last_name`, `email`, `confirmed`, `key`, `password`, `age`, `likes`, `matches`, `likes_nb`, `id_liked`, `reported_by_id`, `blocked_id`) 
-            VALUES (id, "login'.$i++.'","Fletcher", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 77, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Aileen","Parrish", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 52, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Kelsie","Owen", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 63, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Vance","Brown", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 38, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Preston","Silva", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 34, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Kuame","Armstrong", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 31, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Nigel","Leon", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 30, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Adam","Wilkinson", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 25, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Blaine","Alston", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 21, NULL, NULL, 0, NULL, NULL, NULL),
-            (id, "login'.$i++.'","Caesar","Atkinson", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$S3XNewfw2nd/SwtsR06Tce.mvv7tMCyVkI9WNmtszXExkIAZWK.W6", 22, NULL, NULL, 0, NULL, NULL, NULL);';
+            VALUES (id, "login'.++$i.'","Fletcher", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 77, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Aileen","Parrish", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 52, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Kelsie","Owen", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 63, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Vance","Brown", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 38, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Preston","Silva", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 34, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Kuame","Armstrong", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 31, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Nigel","Leon", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 30, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Adam","Wilkinson", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 25, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Blaine","Alston", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 21, NULL, NULL, 0, NULL, NULL, NULL),
+            (id, "login'.++$i.'","Caesar","Atkinson", "login'.$i.'@gmail.com", 1, 27394856823545, "$2y$10$UOo15pUnctVKhA7cA01jHeOONJDhdL3SQad6qGgIeTRdbsCNXCBEi", 22, NULL, NULL, 0, NULL, NULL, NULL);';
 $bdd->query($query);
 
 

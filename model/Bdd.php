@@ -2,6 +2,7 @@
 Class Bdd{
 
   public $db;
+  
 
   public function __construct($dsn="mysql:host=localhost", $login = "root", $pwd="mthiery")
   {
