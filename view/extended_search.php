@@ -187,29 +187,28 @@ else
   $query = 'SELECT `id` FROM matcha.`users` WHERE `id` != '.$_SESSION['id'].$age_filter.$likes_filter;
   $query_profils = 'SELECT * FROM matcha.users_profile WHERE `id` != '.$_SESSION['id'].$tags_filter.$location_filter;
 
-
   $filtered_ageandlikes_profils = Bdd::order_profils($query);
   $filtered_locationandtags_profils = Bdd::order_profils($query_profils);
   $filtered_profils = [];
   foreach ($filtered_locationandtags_profils as $key => $profil) {
     foreach ($filtered_ageandlikes_profils as $value) {
-      if ($value['id'] == $profil['id'])
+      if ($value['id'] == $profil['id']) 
         array_push($filtered_profils, $profil);
     }
   }
+  
 
   if (!(isset($filtered_profils) && count($filtered_profils) > 0))
     $layout->main_error("Aucun utilisateur ne correspond a votre recherche");
   else {
     $nb_users = count($filtered_profils);
-    $nb_pages = ceil($nb_users );
+    $nb_pages = ceil($nb_users/10);
     if (isset($_GET['page']))
       $page = intval(htmlspecialchars($_GET['page']));
     else
       $page = 0;
-
     Members::display_profils_cards($filtered_profils);
-    Members::display_pagination($page, $nb_pages);
+    Members::display_pagination($page, $nb_pages, 'index.php?p=extended_search&page=');
   }
 }
 

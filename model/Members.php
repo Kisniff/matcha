@@ -67,6 +67,7 @@ Class Members{
 
       //$filtres = array (filtres demandé dans la recherche avancée)
       // $order = booleen (ordonné si connecté)
+      // print_r($profils);
 
       $count = count($profils);
       $i = 0;
@@ -118,21 +119,74 @@ Class Members{
 
     public static function display_pagination($page, $nb_pages, $url = "index.php?p=members&page=")
     {
-      $prev_page = ($page > 0) ? $page - 1 : $nb_pages - 1;
-      $next_page = ($page < $nb_pages - 1) ? $page + 1 : 0;
-      echo('
-      <div class="col-sm-12 row">
-        <div class="col-sm-3"></div>
-        <a class="col-sm-2" href="' . $url . $prev_page . '"><<</a>
-        <a class="col-sm-2" href="' . $url . '0">1</a>
-      ');
-      if ($nb_pages - 1 > 0)
-      echo('
-        <a class="col-sm-2" href="' . $url . ($nb_pages - 1) .'">' . ($nb_pages - 1) . '</a>');
-        echo('
-        <a class="col-sm-2" href="' . $url . $next_page . '">>></a>
-      </div>
-      ');
+      // $prev_page = ($page > 0) ? $page - 1 : $nb_pages - 1;
+      // $next_page = ($page < $nb_pages - 1) ? $page + 1 : 0;
+      // echo('
+      // <div class="col-sm-12 row">
+      //   <div class="col-sm-3"></div>
+      //   <a class="col-sm-2" href="' . $url . $prev_page . '"><<</a>
+      //   <a class="col-sm-2" href="' . $url . '0">1</a>
+      // ');
+      // if ($nb_pages - 1 > 0)
+      // echo('
+      //   <a class="col-sm-2" href="' . $url . ($nb_pages - 1) .'">' . ($nb_pages - 1) . '</a>');
+      //   echo('
+      //   <a class="col-sm-2" href="' . $url . $next_page . '">>></a>
+      // </div>
+      // ');
+
+
+      //return empty result string, no links necessary
+      
+      //get the last page number
+      $last = $nb_pages;
+      //calculate start of range for link printing
+      $start = (($page - 1) > 0) ? $page - 1 : 1;
+      //calculate end of range for link printing
+      $end = (($page + 1) < $last) ? $page + 1 : $last;
+
+      print($last);
+      print($start);
+      print($end);
+      print($page);
+
+      $html = '<ul class="pagination">';
+      $disable = 'disabled="disabled"';
+      $class = ($page == 1) ? "disabled" : ""; //disable previous page link <<<
+      //create the links and pass limit and page as $_GET parameters
+      //$this->_page - 1 = previous page (<<< link)
+      $previous_page = ($page == 1) ? 
+          '<li class="'.$class.'"><a href="">&laquo;</a></li>' : // remove link from previous button
+          '<li class="'.$class.'"><a href = "'.$url.($page - 1).'">&laquo;</a></li>';
+      
+      $html.= $previous_page;
+      if ($start > 1)
+      {
+          //print ... before (previous <<< link)
+          $html.= '<li><a href="'.$url.'1">1</a></li>'; //print first page link
+          $html .= '<li class="disabled"><span>...</span></li>';//print ... dots if not on first page
+      }
+      //print all the numbered page links
+      for ($i = $start ; $i <= $end; $i++)
+      {
+          $class = ($page == $i) ? "active" : ""; //highlight current page
+          $html .= '<li class="'.$class.'"><a href="'.$url.$i.'">'.$i.'</a></li>';
+      }
+      if ($end < $last)
+      {
+          //print ... before next page (>>> link)
+          $html .= '<li class="disabled"><span>...</span></li>';//print ... dots if not on last page
+          $html.= '<li><a href="'.$url.$last.'">'.$last.'</a></li>'; //print first page link
+      }
+      $class = ($page == $last) ? "disabled" : ""; //disable next page link >>>
+      //$page + 1 = next page (>>> link)
+      $next_page = ($page == $last) ? 
+          '<li class="'.$class.'"><a href="">&raquo;</a></li>' : // remove link from next button
+          '<li class="'.$class.'"><a href = "'.$url.($page + 1).'">&raquo;</a></li>';
+      
+      $html.= $next_page;
+      $html.= '</ul>';
+      echo ($html);
     }
 
     public static function searching_menu()
