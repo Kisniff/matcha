@@ -150,7 +150,7 @@ Class Members{
       $class = ($page == 1) ? "disabled" : ""; //disable previous page link <<<
       //create the links and pass limit and page as $_GET parameters
       //$this->_page - 1 = previous page (<<< link)
-      $previous_page = ($page == 1) ? 
+      $previous_page = ($page == 0) ? 
           '<li class="'.$class.'"><a href="">&laquo;</a></li>' : // remove link from previous button
           '<li class="'.$class.'"><a href = "'.$url.($page - 1).'">&laquo;</a></li>';
       
@@ -158,24 +158,24 @@ Class Members{
       if ($start > 1)
       {
           //print ... before (previous <<< link)
-          $html.= '<li><a href="'.$url.'1">1</a></li>'; //print first page link
+          $html.= '<li><a href="'.$url.'0">1</a></li>'; //print first page link
           $html .= '<li class="disabled"><span>...</span></li>';//print ... dots if not on first page
       }
       //print all the numbered page links
       for ($i = $start ; $i <= $end; $i++)
       {
-          $class = ($page == $i) ? "active" : ""; //highlight current page
-          $html .= '<li class="'.$class.'"><a href="'.$url.$i.'">'.$i.'</a></li>';
+          $class = ($page + 1 == $i) ? "active" : ""; //highlight current page
+          $html .= '<li class="'.$class.'"><a href="'.$url.($i-1).'">'.$i.'</a></li>';
       }
       if ($end < $last)
       {
           //print ... before next page (>>> link)
           $html .= '<li class="disabled"><span>...</span></li>';//print ... dots if not on last page
-          $html.= '<li><a href="'.$url.$last.'">'.$last.'</a></li>'; //print first page link
+          $html.= '<li><a href="'.$url.($last-1).'">'.$last.'</a></li>'; //print first page link
       }
       $class = ($page == $last) ? "disabled" : ""; //disable next page link >>>
       //$page + 1 = next page (>>> link)
-      $next_page = ($page == $last) ? 
+      $next_page = ($page + 1 == $last) ? 
           '<li class="'.$class.'"><a href="">&raquo;</a></li>' : // remove link from next button
           '<li class="'.$class.'"><a href = "'.$url.($page + 1).'">&raquo;</a></li>';
       
