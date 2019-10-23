@@ -202,7 +202,7 @@ else
     $layout->main_error("Aucun utilisateur ne correspond a votre recherche");
   else {
     $nb_users = count($filtered_profils);
-    $nb_pages = ceil($nb_users / 6);
+    $nb_pages = ceil($nb_users );
     if (isset($_GET['page']))
       $page = intval(htmlspecialchars($_GET['page']));
     else

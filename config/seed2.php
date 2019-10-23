@@ -4,6 +4,7 @@ include_once("../config/database.php");
 $bdd = new Bdd;
 
 $pdo = new Bdd($DB_DSN, $DB_USER, $DB_PASSWORD);
+$pdo->init_bdd();
 try {
 	$pdo->query("use matcha;");
 	$pdo->query("SELECT * FROM users");
@@ -805,7 +806,7 @@ $query = "INSERT INTO matcha.`users_profile` (`id`, `genre`, `orientation`, `bio
             (id,'femme-cisgenre','heterosexuel.le','quis diam luctus lobortis. Class aptent taciti sociosqu ad litora','".$a."','chiens, skate, militantisme, theatre, musique',-20.35639, -115.64387),
             (id,'femme-cisgenre','pansexuel.le','Praesent eu dui. Cum sociis natoque', '".$d."','films',28.08357, -148.68173),
             (id,'gender-fluid','pansexuel.le','a odio semper cursus. Integer mollis. Integer tincidunt aliquam','".$a."','skate',-29.67045, 65.75165);";
-print($query);
+// print($query);
 $bdd->query($query);
 $query = "INSERT INTO matcha.`users_profile` (`id`, `genre`, `orientation`, `biographie`, `images`, `tags`, `latitude`, `longitude`) 
             VALUES (id,'femme-trans','bisexuel.le','Integer vulputate, risus a ultricies adipiscing,','".$a."','',-48.9598, -159.8191),

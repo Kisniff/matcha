@@ -99,7 +99,7 @@ Class Members{
       
       if (isset($_SESSION)) {
         if ($_SESSION['connexion_status'] == 'offline') {
-          $query = 'SELECT * FROM matcha.`users_profile`LIMIT 6 OFFSET '.$offset;
+          $query = 'SELECT * FROM matcha.`users_profile`LIMIT 10 OFFSET '.$offset;
           $profils = Bdd::order_profils($query);
           self::display_profils_cards($profils);
         }
@@ -108,7 +108,7 @@ Class Members{
           $orientation_user = $user_infos['orientation'];
           $lat = $user_infos['latitude'];
           $long = $user_infos['longitude'];
-          $query = 'SELECT * FROM matcha.`users_profile` WHERE `id` != '.$_SESSION['id'].' ORDER BY case `orientation` WHEN "'.$orientation_user.'" then 1 else 2 end, `orientation`, ABS('.$lat.' - latitude) ASC, ABS('.$long.' - longitude) ASC LIMIT 6 OFFSET '.$offset;
+          $query = 'SELECT * FROM matcha.`users_profile` WHERE `id` != '.$_SESSION['id'].' ORDER BY case `orientation` WHEN "'.$orientation_user.'" then 1 else 2 end, `orientation`, ABS('.$lat.' - latitude) ASC, ABS('.$long.' - longitude) ASC LIMIT 10 OFFSET '.$offset;
           $ordered_profils = Bdd::order_profils($query);
           self::display_profils_cards($ordered_profils);
         }

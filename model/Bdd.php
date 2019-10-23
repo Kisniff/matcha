@@ -22,9 +22,9 @@ Class Bdd{
   }
 
   public function init_bdd($db_name="matcha", $table_name="users"){
-    $this->drop_db();
+    // $this->drop_db();
     $this->create_db();
-    $query = "CREATE TABLE matcha.users(
+    $query = "CREATE TABLE IF NOT EXISTS matcha.users(
       id INT AUTO_INCREMENT PRIMARY KEY,
       login VARCHAR(256) NOT NULL,
       first_name VARCHAR(256) NOT NULL,
@@ -41,7 +41,7 @@ Class Bdd{
       reported_by_id LONGTEXT DEFAULT NULL,
       blocked_id LONGTEXT default NULL)";
     $this->query($query);
-    $query = "CREATE TABLE matcha.users_profile(
+    $query = "CREATE TABLE IF NOT EXISTS matcha.users_profile(
       id INT AUTO_INCREMENT PRIMARY KEY,
       genre VARCHAR(256) DEFAULT 'non-binaire',
       orientation VARCHAR(256) DEFAULT 'bisexuel.le',
@@ -51,20 +51,20 @@ Class Bdd{
       images LONGTEXT,
       tags LONGTEXT)";
     $this->query($query);
-    $query = "CREATE TABLE matcha.matched_conv(
+    $query = "CREATE TABLE IF NOT EXISTS matcha.matched_conv(
       id INT AUTO_INCREMENT PRIMARY KEY,
       id_member_a INT default 0,
       id_member_b INT default 0,
       messages LONGTEXT DEFAULT null)";
     $this->query($query);
-    $query = "CREATE TABLE matcha.notifications(
+    $query = "CREATE TABLE IF NOT EXISTS matcha.notifications(
       id INT AUTO_INCREMENT PRIMARY KEY,
       id_member_a INT default 0,
       id_member_b INT default 0,
       is_new INT default 1,
       notif LONGTEXT DEFAULT null)";
     $this->query($query);
-    $this->add_user("root@root.com", "root", "root", "root", "root", "users", 1);
+    // $this->add_user("root@root.com", "root", "root", "root", "root", "users", 1);
   }
 
   public function query($statement)
@@ -171,7 +171,8 @@ Class Bdd{
   }
 
   private function create_db($db_name="matcha"){
-    $query = "CREATE DATABASE " . $db_name . ";";
+    $query = "CREATE DATABASE IF NOT EXISTS " . $db_name . ";";
+    print($query);
     $this->query($query);
   }
 
