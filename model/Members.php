@@ -145,11 +145,6 @@ Class Members{
       //calculate end of range for link printing
       $end = (($page + 1) < $last) ? $page + 1 : $last;
 
-      print($last);
-      print($start);
-      print($end);
-      print($page);
-
       $html = '<ul class="pagination">';
       $disable = 'disabled="disabled"';
       $class = ($page == 1) ? "disabled" : ""; //disable previous page link <<<
